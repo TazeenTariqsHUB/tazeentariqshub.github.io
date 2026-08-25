@@ -326,12 +326,32 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
   let walkId = 0;
   let walking = false;
 
+  // The Home page is designed to never scroll — but on mobile, tapping a
+  // link near/below the fold can make the browser auto-scroll it into
+  // view anyway, which reads as "the page jumps" mid walk-to-tile
+  // animation. Pin the scroll position for the duration of the sequence.
+  let scrollUnlock = null;
+  function lockScroll() {
+    if (scrollUnlock) scrollUnlock();
+    const y = window.scrollY;
+    const prevBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = 'auto';
+    const onScroll = () => window.scrollTo(0, y);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    scrollUnlock = () => {
+      window.removeEventListener('scroll', onScroll);
+      document.documentElement.style.scrollBehavior = prevBehavior;
+      scrollUnlock = null;
+    };
+  }
+
   document.querySelectorAll('.sys-menu-item').forEach(link => {
     link.addEventListener('click', e => {
       const href = link.getAttribute('href');
       if (!href) return;
       e.preventDefault();
       link.blur(); // stops mobile browsers auto-scrolling the tapped link into view
+      lockScroll();
 
       if (walking) {
         walkId++; // invalidates the in-flight stepWalk / ready-beat
@@ -353,6 +373,7 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
             speech.classList.remove('is-visible');
             speech.textContent = 'HI!';
           }
+          if (scrollUnlock) scrollUnlock();
         }, 1100);
         return;
       }
@@ -386,6 +407,7 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
             setTimeout(() => armR.classList.remove('is-pointing'), 500);
           }
           setTimeout(() => {
+            if (scrollUnlock) scrollUnlock();
             coverThen(() => { window.location.href = href; });
           }, 150);
         }, () => myWalkId !== walkId);
