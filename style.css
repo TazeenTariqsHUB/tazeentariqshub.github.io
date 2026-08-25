@@ -969,6 +969,7 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
 @media (max-width: 900px) {
   .sys-hero-grid { grid-template-columns: 1fr; gap: 0.4rem; }
   .sys-desc { margin-bottom: 0.5rem; }
+  .sys-identity { margin-top: 1.5rem; }
 }
 
 .sys-identity {
