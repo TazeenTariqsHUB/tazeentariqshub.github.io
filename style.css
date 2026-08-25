@@ -1529,7 +1529,11 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
   pointer-events: auto;
   cursor: pointer;
   transform: scale(var(--car-scale, 1.15));
-  transform-origin: center;
+  /* Anchored to the top-left corner (not center) so the scaled-down
+     mobile car still parks flush against the screen edge — parkCar()
+     positions this corner directly, and a center-anchored scale would
+     shrink the visual box inward from that point instead. */
+  transform-origin: 0 0;
   transition: left 2.2s ease-in-out;
 }
 /* Only the car graphics flip to face the drive direction — kept in a

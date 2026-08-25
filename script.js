@@ -554,8 +554,12 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
     let carAtRight = false;
 
     function parkCar(atRight, animate) {
+      // getBoundingClientRect, not offsetWidth — it reflects the actual
+      // rendered width after --car-scale shrinks the car on phones, so
+      // the parked position stays flush to the edge at any scale.
+      const w = carScene.getBoundingClientRect().width;
       const x = atRight
-        ? window.innerWidth - carScene.offsetWidth - CAR_MARGIN
+        ? window.innerWidth - w - CAR_MARGIN
         : CAR_MARGIN;
       if (!animate) carScene.style.transition = 'none';
       carScene.style.left = `${x}px`;
