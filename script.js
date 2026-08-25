@@ -156,6 +156,7 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
   const lean = document.getElementById('charLean');
   const eye = document.getElementById('charEye');
   const armR = document.getElementById('charArmR');
+  const armL = document.getElementById('charArmL');
   const legs = document.getElementById('charLegs');
   const speech = document.getElementById('charSpeech');
   const overlay = document.getElementById('pixelTransition');
@@ -328,14 +329,22 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
         walking = false;
         if (stage) stage.classList.remove('is-walking-bob');
         if (legs) legs.classList.remove('leg-b');
+        // Throw both hands up and ask instead of tearing off toward two
+        // rooms at once
+        if (armR) armR.classList.add('is-despair');
+        if (armL) armL.classList.add('is-despair');
         if (speech) {
-          speech.textContent = 'PICK ONE!';
+          speech.textContent = 'WHICH ROOM?';
           speech.classList.add('is-visible');
-          setTimeout(() => {
+        }
+        setTimeout(() => {
+          if (armR) armR.classList.remove('is-despair');
+          if (armL) armL.classList.remove('is-despair');
+          if (speech) {
             speech.classList.remove('is-visible');
             speech.textContent = 'HI!';
-          }, 900);
-        }
+          }
+        }, 1100);
         return;
       }
 

@@ -1235,6 +1235,7 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
 .char-head,
 .char-torso,
 .char-arm-r,
+.char-arm-l,
 .char-legs {
   position: absolute;
   inset: 0;
@@ -1301,6 +1302,39 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
 @keyframes waveWiggle {
   0%, 100% { transform: rotate(0deg); }
   50% { transform: rotate(18deg); }
+}
+
+/* Left arm — mirror of the right arm across the torso's center */
+.char-arm-l {
+  box-shadow:
+    8px 32px 0 var(--char-suit), 12px 32px 0 var(--char-suit),
+    8px 36px 0 var(--char-suit), 12px 36px 0 var(--char-suit),
+    8px 40px 0 var(--char-dark);
+  transition: box-shadow 0.15s steps(1);
+}
+/* Both arms thrown up — used when the player double-clicks two rooms
+   at once, so the robot stops and visibly asks "which one?" */
+.char-arm-r.is-despair {
+  box-shadow:
+    36px 32px 0 var(--char-suit),
+    40px 28px 0 var(--char-suit),
+    44px 24px 0 var(--char-suit),
+    48px 20px 0 var(--dossier-accent);
+  transform-origin: 36px 32px;
+  animation: waveWiggle 0.24s ease-in-out 3;
+}
+.char-arm-l.is-despair {
+  box-shadow:
+    12px 32px 0 var(--char-suit),
+    8px 28px 0 var(--char-suit),
+    4px 24px 0 var(--char-suit),
+    0px 20px 0 var(--dossier-accent);
+  transform-origin: 12px 32px;
+  animation: waveWiggleL 0.24s ease-in-out 3;
+}
+@keyframes waveWiggleL {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-18deg); }
 }
 
 /* "Hi!" speech bubble, popped near the head on tap */
