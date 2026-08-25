@@ -157,6 +157,7 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
   const eye = document.getElementById('charEye');
   const armR = document.getElementById('charArmR');
   const legs = document.getElementById('charLegs');
+  const speech = document.getElementById('charSpeech');
   const overlay = document.getElementById('pixelTransition');
   const backBtn = document.getElementById('pageBack');
   const fine = window.matchMedia('(pointer: fine)').matches;
@@ -279,13 +280,14 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
   const WALK_STEP_MS = 120;  // ms between footsteps (one foot plant)
   const WALK_STEP_MAX = 22;  // cap so very long walks don't take forever
 
-  function stepWalk(track, totalDx, totalDy, onDone) {
+  function stepWalk(track, totalDx, totalDy, onDone, shouldAbort) {
     if (!track) { if (onDone) onDone(); return; }
     const dist = Math.hypot(totalDx, totalDy);
     const steps = Math.max(1, Math.min(WALK_STEP_MAX, Math.round(dist / WALK_STEP_SIZE)));
     let i = 0;
     let footLeft = true;
     const nextStep = () => {
+      if (shouldAbort && shouldAbort()) return;
       i++;
       const x = (totalDx * i / steps).toFixed(1);
       const y = (totalDy * i / steps).toFixed(1);
@@ -307,11 +309,38 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
   const walkTrack = document.getElementById('charWalkTrack');
   const READY_MS = 90;
 
+  // Guards against clicking a second tile while the robot is still
+  // walking toward the first one — instead of both walks fighting over
+  // the same track transform (the glitch), the in-flight walk is
+  // cancelled and the robot just stops where it is and waits for a
+  // fresh, deliberate click to actually go anywhere.
+  let walkId = 0;
+  let walking = false;
+
   document.querySelectorAll('.sys-menu-item').forEach(link => {
     link.addEventListener('click', e => {
       const href = link.getAttribute('href');
       if (!href) return;
       e.preventDefault();
+
+      if (walking) {
+        walkId++; // invalidates the in-flight stepWalk / ready-beat
+        walking = false;
+        if (stage) stage.classList.remove('is-walking-bob');
+        if (legs) legs.classList.remove('leg-b');
+        if (speech) {
+          speech.textContent = 'PICK ONE!';
+          speech.classList.add('is-visible');
+          setTimeout(() => {
+            speech.classList.remove('is-visible');
+            speech.textContent = 'HI!';
+          }, 900);
+        }
+        return;
+      }
+
+      const myWalkId = ++walkId;
+      walking = true;
 
       if (lean) lean.classList.remove('lean-left', 'lean-right');
 
@@ -319,6 +348,7 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
       if (stage) stage.classList.add('is-walking-bob');
 
       setTimeout(() => {
+        if (myWalkId !== walkId) return; // cancelled during the ready beat
         let dx = 0, dy = 0;
         if (walkTrack) {
           const from = walkTrack.getBoundingClientRect();
@@ -331,6 +361,7 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
         // 2. Walk down, one footstep at a time — leg pose is toggled
         // by stepWalk itself, in lockstep with each move
         stepWalk(walkTrack, dx, dy, () => {
+          walking = false;
           if (stage) stage.classList.remove('is-walking-bob');
           if (armR) {
             armR.classList.add('is-pointing');
@@ -339,7 +370,7 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
           setTimeout(() => {
             coverThen(() => { window.location.href = href; });
           }, 150);
-        });
+        }, () => myWalkId !== walkId);
       }, READY_MS);
     });
   });
@@ -545,7 +576,6 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
   }
 
   // Tap the robot (or the car, on Projects) to say hi and give a wave
-  const speech = document.getElementById('charSpeech');
   const tapTarget = walkTrack || charFollow || carScene;
   if (tapTarget && speech) {
     let waving = false;
