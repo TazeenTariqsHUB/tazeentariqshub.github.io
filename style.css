@@ -967,7 +967,8 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
   align-items: center;
 }
 @media (max-width: 900px) {
-  .sys-hero-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .sys-hero-grid { grid-template-columns: 1fr; gap: 0.4rem; }
+  .sys-desc { margin-bottom: 0.5rem; }
 }
 
 .sys-identity {
@@ -1588,7 +1589,7 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
 }
 
 @media (max-width: 900px) {
-  .sys-right-col { margin-top: 0.5rem; }
+  .sys-right-col { margin-top: 0; }
 }
 
 /* Small persistent companion badge — appears once Home scrolls out of
