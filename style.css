@@ -1843,11 +1843,14 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
   .char-follow { left: 4px; }
 }
 
+/* --char-scale is the Home page hero robot — it's the page's focal
+   art, so it only gets a light trim to avoid overflow, not shrunk down
+   like the small subpage side-companion (--char-scale-sm) or the car. */
 @media (max-width: 640px) {
-  :root { --char-scale: 0.75; --char-scale-sm: 0.7; --car-scale: 0.78; }
+  :root { --char-scale: 1.15; --char-scale-sm: 0.7; --car-scale: 0.78; }
 }
 @media (max-width: 400px) {
-  :root { --char-scale: 0.65; --char-scale-sm: 0.6; --car-scale: 0.65; }
+  :root { --char-scale: 1; --char-scale-sm: 0.6; --car-scale: 0.65; }
 }
 
 /* ============================================================
