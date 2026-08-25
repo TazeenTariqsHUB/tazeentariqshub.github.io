@@ -1210,8 +1210,8 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
   animation: charBreathe 2.6s ease-in-out infinite;
 }
 @keyframes charBreathe {
-  0%, 100% { transform: scale(1.3) translateY(0); }
-  50% { transform: scale(1.3) translateY(-2px); }
+  0%, 100% { transform: scale(var(--char-scale, 1.3)) translateY(0); }
+  50% { transform: scale(var(--char-scale, 1.3)) translateY(-2px); }
 }
 
 /* Real walking bob — overrides the idle breathe animation while the
@@ -1220,8 +1220,8 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
   animation: charWalkBob 0.3s ease-in-out infinite;
 }
 @keyframes charWalkBob {
-  0%, 100% { transform: scale(1.3) translateY(0); }
-  50% { transform: scale(1.3) translateY(-5px); }
+  0%, 100% { transform: scale(var(--char-scale, 1.3)) translateY(0); }
+  50% { transform: scale(var(--char-scale, 1.3)) translateY(-5px); }
 }
 
 .char-lean {
@@ -1758,20 +1758,20 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
    focal element */
 .char-stage.char-sm { animation-name: charBreatheSm; }
 @keyframes charBreatheSm {
-  0%, 100% { transform: scale(1.25) translateY(0); }
-  50% { transform: scale(1.25) translateY(-2px); }
+  0%, 100% { transform: scale(var(--char-scale-sm, 1.25)) translateY(0); }
+  50% { transform: scale(var(--char-scale-sm, 1.25)) translateY(-2px); }
 }
 .char-stage.char-sm.is-walking-bob { animation-name: charWalkBobSm; }
 @keyframes charWalkBobSm {
-  0%, 100% { transform: scale(1.25) translateY(0); }
-  50% { transform: scale(1.25) translateY(-4px); }
+  0%, 100% { transform: scale(var(--char-scale-sm, 1.25)) translateY(0); }
+  50% { transform: scale(var(--char-scale-sm, 1.25)) translateY(-4px); }
 }
 /* A little hop, used while roaming (About page) */
 .char-stage.char-sm.is-jumping { animation: charJumpSm 0.46s ease-out; }
 @keyframes charJumpSm {
-  0% { transform: scale(1.25) translateY(0); }
-  45% { transform: scale(1.3) translateY(-18px); }
-  100% { transform: scale(1.25) translateY(0); }
+  0% { transform: scale(var(--char-scale-sm, 1.25)) translateY(0); }
+  45% { transform: scale(calc(var(--char-scale-sm, 1.25) + 0.05)) translateY(-18px); }
+  100% { transform: scale(var(--char-scale-sm, 1.25)) translateY(0); }
 }
 /* Recoil, used when the roaming character bumps into the About panel */
 .char-lean.is-hit { animation: charHitShake 0.32s ease; }
@@ -1803,6 +1803,10 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
 .char-follow .char-legs { pointer-events: none; }
 @media (max-width: 640px) {
   .char-follow { left: 4px; }
+}
+
+@media (max-width: 480px) {
+  :root { --char-scale: 0.8; --char-scale-sm: 0.75; }
 }
 
 /* ============================================================
