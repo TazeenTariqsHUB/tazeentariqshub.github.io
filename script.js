@@ -281,8 +281,16 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
   const WALK_STEP_MS = 120;  // ms between footsteps (one foot plant)
   const WALK_STEP_MAX = 22;  // cap so very long walks don't take forever
 
+  // Reads the track's current translate offset so a new walk can continue
+  // from wherever it actually is, instead of restarting from (0, 0)
+  function getTrackOffset(track) {
+    const m = /translate\(\s*(-?[\d.]+)px,\s*(-?[\d.]+)px\s*\)/.exec(track.style.transform || '');
+    return m ? { x: parseFloat(m[1]), y: parseFloat(m[2]) } : { x: 0, y: 0 };
+  }
+
   function stepWalk(track, totalDx, totalDy, onDone, shouldAbort) {
     if (!track) { if (onDone) onDone(); return; }
+    const start = getTrackOffset(track);
     const dist = Math.hypot(totalDx, totalDy);
     const steps = Math.max(1, Math.min(WALK_STEP_MAX, Math.round(dist / WALK_STEP_SIZE)));
     let i = 0;
@@ -290,8 +298,8 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
     const nextStep = () => {
       if (shouldAbort && shouldAbort()) return;
       i++;
-      const x = (totalDx * i / steps).toFixed(1);
-      const y = (totalDy * i / steps).toFixed(1);
+      const x = (start.x + totalDx * i / steps).toFixed(1);
+      const y = (start.y + totalDy * i / steps).toFixed(1);
       track.style.transform = `translate(${x}px, ${y}px)`;
       if (legs) legs.classList.toggle('leg-b', !footLeft);
       footLeft = !footLeft;
