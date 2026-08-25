@@ -866,6 +866,13 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
 .sys-hero {
   position: relative;
   min-height: 100vh;
+  /* Mobile browsers resize the visual viewport (and re-run layout)
+     when the address bar collapses/expands on tap — with min-height
+     tied to 100vh, that reflow reads as "the page jumping" the moment
+     you tap something near the bottom. 100svh is pinned to the
+     smallest possible viewport (address bar always assumed visible),
+     so the box never resizes out from under you. */
+  min-height: 100svh;
   overflow: hidden;
   display: flex;
   align-items: flex-start;
