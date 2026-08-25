@@ -331,6 +331,7 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
       const href = link.getAttribute('href');
       if (!href) return;
       e.preventDefault();
+      link.blur(); // stops mobile browsers auto-scrolling the tapped link into view
 
       if (walking) {
         walkId++; // invalidates the in-flight stepWalk / ready-beat

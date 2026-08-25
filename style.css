@@ -969,7 +969,10 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
 @media (max-width: 900px) {
   .sys-hero-grid { grid-template-columns: 1fr; gap: 0.4rem; }
   .sys-desc { margin-bottom: 0.5rem; }
-  .sys-identity { margin-top: 1.5rem; }
+  /* Vertically centers the whole block instead of adding margin, so the
+     text sits lower without growing past the viewport height and
+     re-introducing scroll on a page that's meant to never scroll */
+  .sys-hero { align-items: center; }
 }
 
 .sys-identity {
