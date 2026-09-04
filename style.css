@@ -434,6 +434,10 @@ main, .footer, .navbar { position: relative; z-index: 1; }
   border-top: 1px dashed var(--dossier-line);
 }
 
+.win-entry .project-title { margin-bottom: 0.45rem; }
+.win-entry .project-desc { margin-bottom: 0.5rem; }
+.win-entry .project-title + .project-stack { margin-bottom: 0; }
+
 /* Label:value rows, matching the reference dossier readout */
 .dossier-rows > div {
   display: flex;
