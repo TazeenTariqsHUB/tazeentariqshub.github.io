@@ -662,8 +662,9 @@ if (skillsGrid) {
 }
 
 // Publication chooser modal (Research page) — the OWASP card opens a
-// popup offering multiple platforms instead of one direct link, and
-// the companion slides in beside the popup while it's open.
+// popup offering multiple platforms instead of one direct link. The
+// companion snaps beside the popup instantly (no slide) while it's
+// open, and snaps back the same way once it's closed.
 const pubModal = document.getElementById('pubModal');
 const pubModalTrigger = document.getElementById('pubModalTrigger');
 if (pubModal && pubModalTrigger) {
@@ -671,15 +672,24 @@ if (pubModal && pubModalTrigger) {
   const pubModalCloseBtn = document.getElementById('pubModalClose');
   const pubCharFollow = document.getElementById('charFollow');
 
+  function snapCharacter(toggleOn) {
+    if (!pubCharFollow) return;
+    const prevTransition = pubCharFollow.style.transition;
+    pubCharFollow.style.transition = 'none';
+    pubCharFollow.classList.toggle('at-modal', toggleOn);
+    void pubCharFollow.offsetWidth; // force reflow so the jump is instant
+    pubCharFollow.style.transition = prevTransition;
+  }
+
   function openPubModal() {
     pubModal.classList.add('is-open');
     pubModal.setAttribute('aria-hidden', 'false');
-    if (pubCharFollow) pubCharFollow.classList.add('at-modal');
+    snapCharacter(true);
   }
   function closePubModal() {
     pubModal.classList.remove('is-open');
     pubModal.setAttribute('aria-hidden', 'true');
-    if (pubCharFollow) pubCharFollow.classList.remove('at-modal');
+    snapCharacter(false);
   }
 
   pubModalTrigger.addEventListener('click', (e) => {
