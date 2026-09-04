@@ -795,6 +795,13 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
 /* About page */
 .about-hero { min-height: 40vh; }
 .about-page-section { max-width: 700px; }
+/* The roaming companion (z-index 40, position: fixed) bumps around the
+   whole screen on this page and would otherwise pass in front of the
+   text panel when it wanders behind it — keep the panel above it. */
+.about-page-section .win {
+  position: relative;
+  z-index: 50;
+}
 .about-heading {
   font-family: var(--pixel);
   font-size: 1.1rem;
