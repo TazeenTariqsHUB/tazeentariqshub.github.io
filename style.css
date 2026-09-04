@@ -35,7 +35,10 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  background: var(--page-bg-1);
+}
 
 body {
   background: linear-gradient(180deg, var(--page-bg-1) 0%, var(--page-bg-2) 100%);
