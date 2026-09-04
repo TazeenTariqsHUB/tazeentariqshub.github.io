@@ -1862,23 +1862,6 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
   .char-follow { left: 4px; }
 }
 
-/* When a modal opens, the companion slides in beside it instead of
-   staying pinned at its scroll position */
-.char-follow.at-modal {
-  left: calc(50% - 260px) !important;
-  top: 50% !important;
-  transform: translateY(-50%);
-  z-index: 301;
-}
-@media (max-width: 760px) {
-  .char-follow.at-modal {
-    left: 50% !important;
-    top: auto !important;
-    bottom: 1rem;
-    transform: translateX(-50%);
-  }
-}
-
 /* ============================================================
    PUBLICATION CHOOSER MODAL — a card can open a small popup
    offering multiple platforms to read on, instead of one direct link.
