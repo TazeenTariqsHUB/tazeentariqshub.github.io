@@ -660,3 +660,35 @@ if (skillsGrid) {
   }
   scheduleSkillGlitch();
 }
+
+// Publication chooser modal (Research page) — the OWASP card opens a
+// popup offering multiple platforms instead of one direct link, and
+// the companion slides in beside the popup while it's open.
+const pubModal = document.getElementById('pubModal');
+const pubModalTrigger = document.getElementById('pubModalTrigger');
+if (pubModal && pubModalTrigger) {
+  const pubModalBackdrop = document.getElementById('pubModalBackdrop');
+  const pubModalCloseBtn = document.getElementById('pubModalClose');
+  const pubCharFollow = document.getElementById('charFollow');
+
+  function openPubModal() {
+    pubModal.classList.add('is-open');
+    pubModal.setAttribute('aria-hidden', 'false');
+    if (pubCharFollow) pubCharFollow.classList.add('at-modal');
+  }
+  function closePubModal() {
+    pubModal.classList.remove('is-open');
+    pubModal.setAttribute('aria-hidden', 'true');
+    if (pubCharFollow) pubCharFollow.classList.remove('at-modal');
+  }
+
+  pubModalTrigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    openPubModal();
+  });
+  if (pubModalBackdrop) pubModalBackdrop.addEventListener('click', closePubModal);
+  if (pubModalCloseBtn) pubModalCloseBtn.addEventListener('click', closePubModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && pubModal.classList.contains('is-open')) closePubModal();
+  });
+}

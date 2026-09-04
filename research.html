@@ -82,12 +82,12 @@
         <p class="section-intro">Click any entry to read the full piece.</p>
         <div class="proj-grid">
 
-          <div class="proj-item proj-item-disabled">
-            <div class="proj-item-head"><span class="proj-item-idx">PUB 01</span><span class="project-arrow" aria-hidden="true">…</span></div>
+          <a class="proj-item" href="#" id="pubModalTrigger">
+            <div class="proj-item-head"><span class="proj-item-idx">PUB 01</span><span class="project-arrow" aria-hidden="true">→</span></div>
             <p class="project-title">"OWASP Top 10 for Software Engineers"</p>
-            <p class="project-desc">Researched and authored a practical breakdown of the OWASP Top 10 web application security risks, written to make the concepts accessible to software engineers, computer science students, engineers, and developers alike. Link coming soon.</p>
-            <p class="project-stack">NEBULA ARCHIVE MAGAZINE &middot; AMAZON KINDLE &middot; MAR 2026</p>
-          </div>
+            <p class="project-desc">Researched and authored a practical breakdown of the OWASP Top 10 web application security risks, written to make the concepts accessible to software engineers, computer science students, engineers, and developers alike.</p>
+            <p class="project-stack">NEBULA ARCHIVE MAGAZINE &middot; MAR 2026</p>
+          </a>
 
           <a class="proj-item" href="https://medium.com/@tazeentfk5/the-state-of-cybersecurity-in-2026-surviving-the-agentic-swamp-44941b9227cb?sharedUserId=tazeentfk5" target="_blank" rel="noopener">
             <div class="proj-item-head"><span class="proj-item-idx">PUB 02</span><span class="project-arrow" aria-hidden="true">→</span></div>
@@ -170,6 +170,35 @@
   </section>
 
 </main>
+
+<div class="pub-modal" id="pubModal" aria-hidden="true">
+  <div class="pub-modal-backdrop" id="pubModalBackdrop"></div>
+  <div class="pub-modal-dialog win" role="dialog" aria-modal="true" aria-labelledby="pubModalTitle">
+    <div class="win-header">
+      <span class="win-title" id="pubModalTitle"><span class="win-idx">[ ? ]</span>CHOOSE A READER</span>
+      <button class="pub-modal-close" id="pubModalClose" type="button" aria-label="Close">&times;</button>
+    </div>
+    <div class="win-body">
+      <p class="section-intro">"OWASP Top 10 for Software Engineers" is available on two platforms:</p>
+      <div class="pub-choice-list">
+        <a class="pub-choice" href="https://lnkd.in/d_pU54id" target="_blank" rel="noopener">
+          <span>
+            <span class="pub-choice-name">Amazon Kindle</span><br>
+            <span class="pub-choice-sub">Read the ebook edition</span>
+          </span>
+          <span class="pub-choice-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="pub-choice" href="https://lnkd.in/de_N6myV" target="_blank" rel="noopener">
+          <span>
+            <span class="pub-choice-name">Heyzine</span><br>
+            <span class="pub-choice-sub">Read the flipbook edition</span>
+          </span>
+          <span class="pub-choice-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer class="footer">
   <p>&copy; <span id="year"></span> TAZEEN TARIQ — BUILT WITH HTML, CSS &amp; JS</p>

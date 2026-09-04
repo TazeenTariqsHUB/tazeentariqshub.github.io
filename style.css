@@ -1862,6 +1862,82 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
   .char-follow { left: 4px; }
 }
 
+/* When a modal opens, the companion slides in beside it instead of
+   staying pinned at its scroll position */
+.char-follow.at-modal {
+  left: calc(50% - 260px) !important;
+  top: 50% !important;
+  transform: translateY(-50%);
+  z-index: 301;
+}
+@media (max-width: 760px) {
+  .char-follow.at-modal {
+    left: 50% !important;
+    top: auto !important;
+    bottom: 1rem;
+    transform: translateX(-50%);
+  }
+}
+
+/* ============================================================
+   PUBLICATION CHOOSER MODAL — a card can open a small popup
+   offering multiple platforms to read on, instead of one direct link.
+   ============================================================ */
+.pub-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.pub-modal.is-open { display: flex; }
+.pub-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 8, 6, 0.72);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+.pub-modal-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  z-index: 1;
+}
+.pub-modal-close {
+  background: none;
+  border: none;
+  color: var(--dossier-text-dim);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.2rem;
+}
+.pub-modal-close:hover { color: var(--dossier-accent); }
+.pub-choice-list { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem; }
+.pub-choice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--dossier-line);
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.pub-choice:hover {
+  border-color: rgba(var(--dossier-accent-rgb),0.75);
+  background: rgba(var(--dossier-accent-rgb),0.06);
+  transform: translateY(-2px);
+}
+.pub-choice-name { font-family: var(--robo); font-weight: 700; font-size: 1rem; color: var(--dossier-text); }
+.pub-choice-sub { font-size: 0.85rem; color: var(--dossier-text-dim); }
+.pub-choice-arrow { font-family: var(--pixel); font-size: 0.8rem; color: var(--dossier-accent); flex-shrink: 0; }
+
 /* --char-scale is the Home page hero robot — it's the page's focal
    art, so it only gets a light trim to avoid overflow, not shrunk down
    like the small subpage side-companion (--char-scale-sm) or the car. */
