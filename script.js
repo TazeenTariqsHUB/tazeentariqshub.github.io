@@ -689,3 +689,32 @@ if (pubModal && pubModalTrigger) {
     if (e.key === 'Escape' && pubModal.classList.contains('is-open')) closePubModal();
   });
 }
+
+// Lab list modal (Education page) — clicking "Web Security Academy"
+// opens a popup listing the completed PortSwigger labs, same pattern
+// as the publication chooser modal above.
+const labsModal = document.getElementById('labsModal');
+const labsModalTrigger = document.getElementById('labsModalTrigger');
+if (labsModal && labsModalTrigger) {
+  const labsModalBackdrop = document.getElementById('labsModalBackdrop');
+  const labsModalCloseBtn = document.getElementById('labsModalClose');
+
+  function openLabsModal() {
+    labsModal.classList.add('is-open');
+    labsModal.setAttribute('aria-hidden', 'false');
+  }
+  function closeLabsModal() {
+    labsModal.classList.remove('is-open');
+    labsModal.setAttribute('aria-hidden', 'true');
+  }
+
+  labsModalTrigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    openLabsModal();
+  });
+  if (labsModalBackdrop) labsModalBackdrop.addEventListener('click', closeLabsModal);
+  if (labsModalCloseBtn) labsModalCloseBtn.addEventListener('click', closeLabsModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && labsModal.classList.contains('is-open')) closeLabsModal();
+  });
+}

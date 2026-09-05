@@ -1928,6 +1928,23 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
 .pub-choice-sub { font-size: 0.85rem; color: var(--dossier-text-dim); }
 .pub-choice-arrow { font-family: var(--pixel); font-size: 0.8rem; color: var(--dossier-accent); flex-shrink: 0; }
 
+/* Plain list used inside a modal body (e.g. the Web Security Academy
+   lab list) — a simple accent-marked list, distinct from proj-grid */
+.lab-list { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.8rem; }
+.lab-list li {
+  position: relative;
+  padding-left: 1.1rem;
+  color: var(--dossier-text);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.lab-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--dossier-accent);
+}
+
 /* --char-scale is the Home page hero robot — it's the page's focal
    art, so it only gets a light trim to avoid overflow, not shrunk down
    like the small subpage side-companion (--char-scale-sm) or the car. */
