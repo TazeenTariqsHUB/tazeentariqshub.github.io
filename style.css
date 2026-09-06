@@ -119,7 +119,7 @@ a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
 dl, dt, dd { margin: 0; }
 
-main, .footer, .navbar { position: relative; z-index: 1; }
+main, .footer, .navbar { position: relative; z-index: 45; }
 
 /* Pixel-notched panel corners, reused everywhere */
 .pixel-border {
