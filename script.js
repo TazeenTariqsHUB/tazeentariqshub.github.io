@@ -12,7 +12,7 @@
     return;
   }
 
-  const lines = ['INITIALIZING...', 'IDENTITY VERIFIED', 'SECURITY PROFILE LOADED', 'WELCOME, TAZEEN'];
+  const lines = ['INITIALIZING...', 'IDENTITY VERIFIED', 'SECURITY PROFILE LOADED', "WELCOME TO TAZEEN'S PORTFOLIO"];
   let done = false;
   const timers = [];
 
