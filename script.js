@@ -598,25 +598,18 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
     window.addEventListener('resize', () => parkCar(carAtRight, false));
 
     const CAR_DRIVE_MS = 2200; // matches the slower .car-scene "left" transition
-    const SCROLL_SETTLE_MS = 550; // rough wait for the smooth scroll-to-top to land
 
     document.querySelectorAll('.proj-item').forEach(item => {
       item.addEventListener('click', e => {
         const href = item.getAttribute('href');
         e.preventDefault();
-
-        // The car stays pinned near the top of the screen — so scroll the
-        // page back to top FIRST (in case the user had scrolled down to
-        // read projects), then let the car drive once it's back in view.
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-
-        setTimeout(() => {
-          carAtRight = !carAtRight;
-          parkCar(carAtRight, true);
-          if (href) {
-            setTimeout(() => window.open(href, '_blank', 'noopener'), CAR_DRIVE_MS);
-          }
-        }, SCROLL_SETTLE_MS);
+        // The road is sticky, so the car is always in view — drive
+        // right away from wherever the user is on the page.
+        carAtRight = !carAtRight;
+        parkCar(carAtRight, true);
+        if (href) {
+          setTimeout(() => window.open(href, '_blank', 'noopener'), CAR_DRIVE_MS);
+        }
       });
     });
   }

@@ -1547,10 +1547,17 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
    projects panel. The car lives inside it, so the drive never crosses
    the heading text (it used to be fixed at the title's height). */
 .car-road {
-  position: relative;
+  /* Sticky, not fixed: it starts in flow under the title (so the drive
+     never crosses the heading) and then pins to the top of the screen
+     as you scroll, so the car stays in view while reading. Sits above
+     main (z 45) with a dark band so content passes behind the road. */
+  position: sticky;
+  top: 0;
+  z-index: 46;
   height: 76px;
   margin: 0 0 0.4rem;
   overflow: hidden;
+  background: linear-gradient(to bottom, rgba(8, 8, 14, 0) 0%, rgba(8, 8, 14, 0.9) 40%, rgba(8, 8, 14, 0.9) 100%);
 }
 .car-road::after {
   content: '';
