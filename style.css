@@ -1543,12 +1543,25 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
    grid (both layers use the same inset:0 positioning technique the base
    character's own layers use), so they can't drift out of alignment
    the way two independently-positioned elements can. */
+/* The road — a full-width strip between the page title and the
+   projects panel. The car lives inside it, so the drive never crosses
+   the heading text (it used to be fixed at the title's height). */
+.car-road {
+  position: relative;
+  height: 76px;
+  margin: 0 0 0.4rem;
+  overflow: hidden;
+}
+.car-road::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 10px;
+  border-top: 2px dashed rgba(var(--dossier-accent-rgb), 0.35);
+}
 .car-scene {
-  /* Genuinely fixed to the viewport — no lag, unlike a scroll-synced
-     JS position (which was the previous approach here and, in
-     hindsight, is what caused the visible "chasing" during scroll). */
-  position: fixed;
-  top: 84px;
+  position: absolute;
+  top: 4px;
   width: 120px;
   height: 56px;
   z-index: 40;
@@ -1950,6 +1963,7 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
    like the small subpage side-companion (--char-scale-sm) or the car. */
 @media (max-width: 640px) {
   :root { --char-scale: 1.15; --char-scale-sm: 0.7; --car-scale: 0.78; }
+  .car-road { height: 58px; }
 }
 @media (max-width: 400px) {
   :root { --char-scale: 1; --char-scale-sm: 0.6; --car-scale: 0.65; }

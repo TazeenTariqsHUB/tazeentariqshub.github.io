@@ -567,8 +567,9 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
     }
   }
 
-  // Projects page: the robot drives its car across the screen on every
-  // project click — right-to-left, then left-to-right, alternating.
+  // Projects page: the robot drives its car along the road strip under
+  // the title on every project click — right-to-left, then
+  // left-to-right, alternating.
   // Project links open in a new tab, so there's no navigation to wait
   // on — the drive just plays independently.
   const carScene = document.getElementById('carScene');
@@ -581,8 +582,9 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
       // rendered width after --car-scale shrinks the car on phones, so
       // the parked position stays flush to the edge at any scale.
       const w = carScene.getBoundingClientRect().width;
+      const roadW = carScene.parentElement.clientWidth || window.innerWidth;
       const x = atRight
-        ? window.innerWidth - w - CAR_MARGIN
+        ? roadW - w - CAR_MARGIN
         : CAR_MARGIN;
       if (!animate) carScene.style.transition = 'none';
       carScene.style.left = `${x}px`;
