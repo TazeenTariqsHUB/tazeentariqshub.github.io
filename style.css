@@ -2146,8 +2146,8 @@ body.theme-mono::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cg fill='none' stroke='%23d8dde2' stroke-width='1.4' opacity='0.12'%3E%3Cpath d='M20 30 H100 V80 H160'/%3E%3Cpath d='M180 20 V70 H220'/%3E%3Cpath d='M30 150 H90 V200 H150'/%3E%3Cpath d='M170 130 V190 H230'/%3E%3Cpath d='M10 110 H50'/%3E%3Cpath d='M190 100 H230 V150'/%3E%3C/g%3E%3Cg fill='%23d8dde2' opacity='0.18'%3E%3Ccircle cx='100' cy='30' r='2.2'/%3E%3Ccircle cx='160' cy='80' r='2.2'/%3E%3Ccircle cx='220' cy='20' r='2'/%3E%3Ccircle cx='90' cy='150' r='2.2'/%3E%3Ccircle cx='150' cy='200' r='2'/%3E%3Ccircle cx='230' cy='190' r='2'/%3E%3Ccircle cx='50' cy='110' r='1.8'/%3E%3Ccircle cx='230' cy='150' r='2'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* Grappling rope — thrown from the companion's hand to a window corner
-   (Experience / Education), then reeled in as the companion zips over */
+/* Grappling rope — Home page: thrown from the robot's hand to a far menu
+   tile (Experience / Education), then reeled in as the robot zips over */
 .char-rope {
   position: fixed;
   z-index: 39;
@@ -2156,7 +2156,8 @@ body.theme-mono::before {
   transform-origin: 0 50%;
   pointer-events: none;
   opacity: 0;
-  background: repeating-linear-gradient(90deg, var(--dossier-accent) 0 6px, transparent 6px 9px);
+  --rope: var(--dossier-accent);
+  background: repeating-linear-gradient(90deg, var(--rope) 0 6px, transparent 6px 9px);
 }
 .char-rope.is-out { opacity: 1; }
 .char-rope::after {
@@ -2164,12 +2165,14 @@ body.theme-mono::before {
   position: absolute;
   right: -3px; top: -3px;
   width: 8px; height: 8px;
-  background: var(--dossier-accent);
-  box-shadow: 0 0 6px rgba(var(--dossier-accent-rgb), 0.8);
+  background: var(--rope);
+  box-shadow: 0 0 6px var(--rope);
 }
 .char-rope.is-hooked::after { right: auto; left: -3px; }
-.char-stage.char-sm.is-zipping { animation: charZipSm 0.5s ease-in-out infinite; }
-@keyframes charZipSm {
-  0%, 100% { transform: scale(var(--char-scale-sm, 1.25)) rotate(-8deg) translateY(-2px); }
-  50% { transform: scale(var(--char-scale-sm, 1.25)) rotate(8deg) translateY(-6px); }
+.char-stage.is-zipping { animation: charZip 0.5s ease-in-out infinite; }
+@keyframes charZip {
+  0%, 100% { transform: scale(var(--char-scale, 1.3)) rotate(-8deg) translateY(-2px); }
+  50% { transform: scale(var(--char-scale, 1.3)) rotate(8deg) translateY(-6px); }
 }
+/* Home page (pastel background): rope in the dark magenta used for text there */
+body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
