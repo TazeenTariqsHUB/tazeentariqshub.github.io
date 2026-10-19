@@ -433,86 +433,9 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
       e.preventDefault();
       link.blur(); // stops mobile browsers auto-scrolling the tapped link into view
 
-      // Phones: no room for the robot to travel to a tile, so skip the
-      // walk/rope and go straight through the pixel wipe
-      if (window.matchMedia('(max-width: 700px)').matches) {
-        coverThen(() => { window.location.href = href; });
-        return;
-      }
-      lockScroll();
-
-      if (walking) {
-        walkId++; // invalidates the in-flight stepWalk / ready-beat
-        walking = false;
-        if (stage) stage.classList.remove('is-walking-bob', 'is-zipping');
-        if (legs) legs.classList.remove('leg-b');
-        if (walkTrack && walkTrack.style.transition) {
-          // Mid-zip: freeze the track where it is right now
-          walkTrack.style.transform = getComputedStyle(walkTrack).transform;
-          walkTrack.style.transition = '';
-        }
-        hideRope();
-        // Throw both hands up and ask instead of tearing off toward two
-        // rooms at once
-        if (armR) armR.classList.add('is-despair');
-        if (armL) armL.classList.add('is-despair');
-        if (speech) {
-          speech.textContent = 'WHICH ROOM?';
-          speech.classList.add('is-visible');
-        }
-        setTimeout(() => {
-          if (armR) armR.classList.remove('is-despair');
-          if (armL) armL.classList.remove('is-despair');
-          if (speech) {
-            speech.classList.remove('is-visible');
-            speech.textContent = 'HI!';
-          }
-          if (scrollUnlock) scrollUnlock();
-        }, 1100);
-        return;
-      }
-
-      const myWalkId = ++walkId;
-      walking = true;
-
-      if (lean) lean.classList.remove('lean-left', 'lean-right');
-
-      // 1. Quick "ready" beat
-      if (stage) stage.classList.add('is-walking-bob');
-
-      setTimeout(() => {
-        if (myWalkId !== walkId) return; // cancelled during the ready beat
-        let dx = 0, dy = 0;
-        if (walkTrack) {
-          const from = walkTrack.getBoundingClientRect();
-          const to = link.getBoundingClientRect();
-          // Land standing on TOP of the tile — feet at its top edge,
-          // centered horizontally — not beside it.
-          dx = (to.left + to.width / 2) - (from.left + from.width / 2);
-          dy = to.top - from.bottom + 6;
-        }
-        const arrive = () => {
-          walking = false;
-          if (stage) stage.classList.remove('is-walking-bob');
-          if (armR) {
-            armR.classList.add('is-pointing');
-            setTimeout(() => armR.classList.remove('is-pointing'), 500);
-          }
-          setTimeout(() => {
-            if (scrollUnlock) scrollUnlock();
-            coverThen(() => { window.location.href = href; });
-          }, 150);
-        };
-        const cancelled = () => myWalkId !== walkId;
-        // 2. A far tile (Experience / Education sit across the page from
-        // the robot) gets the grappling rope; a near one is walked to,
-        // one footstep at a time, leg pose toggled in lockstep by stepWalk
-        if (walkTrack && Math.hypot(dx, dy) > GRAPPLE_MIN_DIST) {
-          grappleWalk(walkTrack, link, dx, dy, arrive, cancelled);
-        } else {
-          stepWalk(walkTrack, dx, dy, arrive, cancelled);
-        }
-      }, READY_MS);
+      // The robot stays where it is: a tile click goes straight through
+      // the pixel wipe to the room (no walk, no rope — removed on request)
+      coverThen(() => { window.location.href = href; });
     });
   });
 
