@@ -468,6 +468,96 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
     // fight over the same left/top transition timing.
     if (!charFollow.classList.contains('roams')) {
       window.addEventListener('scroll', onScroll, { passive: true });
+
+      // Grappling hook: when a window scrolls into view and the companion
+      // is far from it (wide screens leave it stranded at the left edge),
+      // it throws a rope to the window's corner and zips across on it.
+      const rope = document.createElement('div');
+      rope.className = 'char-rope';
+      document.body.appendChild(rope);
+      let grappling = false;
+      let lastGrappleAt = 0;
+      let lastWin = null;
+
+      function placeRope(from, to) {
+        const dx = to.x - from.x, dy = to.y - from.y;
+        rope.style.left = `${from.x}px`;
+        rope.style.top = `${from.y}px`;
+        rope.style.transform = `rotate(${Math.atan2(dy, dx) * 180 / Math.PI}deg)`;
+        return Math.hypot(dx, dy);
+      }
+
+      function grappleTo(win) {
+        if (grappling || !stage) return;
+        const r = win.getBoundingClientRect();
+        const s = stage.getBoundingClientRect();
+        const anchorY = Math.max(FOLLOW_TOP_MIN, Math.min(window.innerHeight - s.height - 20, r.top + 4));
+        const anchor = { x: r.left + 4, y: anchorY };
+        const dest = { left: anchor.x - s.width - 10, top: anchorY };
+        if (dest.left < 4) return; // no room beside the window (narrow screens)
+        const hand = { x: s.left + s.width * 0.86, y: s.top + s.height * 0.42 };
+        if (Math.hypot(hand.x - anchor.x, hand.y - anchor.y) < 90) return;
+        grappling = true;
+        lastWin = win;
+        lastGrappleAt = Date.now();
+
+        // 1. Throw — rope grows from the hand to the corner
+        if (armR) armR.classList.add('is-pointing');
+        if (speech) { speech.textContent = 'HOOK!'; speech.classList.add('is-visible'); }
+        const len = placeRope(hand, anchor);
+        rope.style.transition = 'none';
+        rope.style.width = '0px';
+        rope.classList.add('is-out');
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          rope.style.transition = 'width 0.28s linear';
+          rope.style.width = `${len}px`;
+        }));
+
+        // 2. Zip — rope re-anchored at the hook; it reels in while the companion slides over
+        setTimeout(() => {
+          placeRope(anchor, hand);
+          rope.style.transition = 'none';
+          rope.style.width = `${len}px`;
+          rope.classList.add('is-hooked');
+          const dur = Math.min(0.9, 0.35 + len / 900);
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            rope.style.transition = `width ${dur}s ease-in`;
+            rope.style.width = '0px';
+            charFollow.style.transitionDuration = `${dur}s, ${dur}s`;
+            charFollow.style.transitionTimingFunction = 'ease-in, ease-in';
+            charFollow.style.left = `${dest.left}px`;
+            charFollow.style.top = `${dest.top}px`;
+            followTop = dest.top;
+            stage.classList.add('is-zipping');
+          }));
+
+          // 3. Land — rope gone, a little recoil, back to normal
+          setTimeout(() => {
+            rope.classList.remove('is-out', 'is-hooked');
+            rope.style.width = '0px';
+            charFollow.style.transitionDuration = '';
+            charFollow.style.transitionTimingFunction = '';
+            stage.classList.remove('is-zipping');
+            if (armR) armR.classList.remove('is-pointing');
+            if (lean) { lean.classList.add('is-hit'); setTimeout(() => lean.classList.remove('is-hit'), 320); }
+            if (speech) { speech.classList.remove('is-visible'); speech.textContent = 'HI!'; }
+            grappling = false;
+          }, dur * 1000 + 80);
+        }, 340);
+      }
+
+      const wins = document.querySelectorAll('.win');
+      if (wins.length && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            if (entry.target === lastWin) return;
+            if (Date.now() - lastGrappleAt < 1500) return;
+            grappleTo(entry.target);
+          });
+        }, { threshold: 0.12 });
+        wins.forEach(w => io.observe(w));
+      }
     }
 
     // On pages marked "roams" (About), the companion freely wanders the
