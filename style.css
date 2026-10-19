@@ -573,7 +573,7 @@ main, .footer, .navbar { position: relative; z-index: 45; }
    Boxes glitch individually and often, rotating around the grid. */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(126px, 1fr));
   gap: 0.4rem;
 }
 .skill-box {
@@ -584,6 +584,8 @@ main, .footer, .navbar { position: relative; z-index: 45; }
   font-size: 0.62rem;
   letter-spacing: 0.5px;
   text-align: center;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
   color: var(--dossier-text);
   background: rgba(var(--dossier-accent-rgb),0.05);
   transition: border-color 0.2s, color 0.2s;
