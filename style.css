@@ -46,8 +46,8 @@ body {
   background-attachment: fixed;
   color: var(--ink);
   font-family: var(--mono);
-  font-size: 1.05rem;
-  line-height: 1.6;
+  font-size: 0.95rem;
+  line-height: 1.55;
   overflow-x: hidden;
   position: relative;
 }
@@ -716,7 +716,7 @@ a.proj-item:hover {
 }
 .proj-item-idx { font-family: var(--pixel); font-size: 0.62rem; letter-spacing: 1px; color: var(--dossier-accent); opacity: 0.9; }
 .project-title { font-family: var(--robo); font-weight: 700; font-size: 1.02rem; color: var(--dossier-text); line-height: 1.3; }
-.project-desc { font-size: 1rem; color: var(--dossier-text-dim); }
+.project-desc { font-size: 0.95rem; color: var(--dossier-text-dim); }
 .project-stack { font-family: var(--pixel); font-size: 0.62rem; letter-spacing: 0.5px; color: var(--dossier-accent); opacity: 0.9; }
 .project-arrow { font-family: var(--pixel); font-size: 0.8rem; color: var(--dossier-accent); transition: transform 0.2s; }
 a.proj-item:hover .project-arrow { transform: translateX(4px); }
@@ -795,7 +795,7 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
 
 /* About page */
 .about-hero { min-height: 40vh; }
-.about-page-section { max-width: 700px; }
+.about-page-section { max-width: 920px; }
 /* The roaming companion (z-index 40, position: fixed) bumps around the
    whole screen on this page and would otherwise pass in front of the
    text panel when it wanders behind it — keep the panel above it. */
@@ -812,9 +812,9 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
   text-shadow: 0 0 10px rgba(var(--dossier-accent-rgb), 0.5);
 }
 .about-text {
-  font-size: 1.15rem;
+  font-size: 1rem;
   color: var(--dossier-text-dim);
-  line-height: 1.8;
+  line-height: 1.6;
   margin-bottom: 1.35rem;
 }
 .about-emphasis {
