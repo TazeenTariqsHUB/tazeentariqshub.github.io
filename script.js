@@ -432,6 +432,13 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
       if (!href) return;
       e.preventDefault();
       link.blur(); // stops mobile browsers auto-scrolling the tapped link into view
+
+      // Phones: no room for the robot to travel to a tile, so skip the
+      // walk/rope and go straight through the pixel wipe
+      if (window.matchMedia('(max-width: 700px)').matches) {
+        coverThen(() => { window.location.href = href; });
+        return;
+      }
       lockScroll();
 
       if (walking) {
