@@ -2176,3 +2176,5 @@ body.theme-mono::before {
 }
 /* Home page (pastel background): rope in the dark magenta used for text there */
 body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
+/* Research page: the Leadership window spans the full row under Research Jobs + Speaking */
+#leadership { grid-column: 1 / -1; }
