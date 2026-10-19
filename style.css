@@ -2178,3 +2178,7 @@ body.theme-mono::before {
 body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 /* Research page: the Leadership window spans the full row under Research Jobs + Speaking */
 #leadership { grid-column: 1 / -1; }
+
+/* Certificates without a public verification link: plain rows, not links */
+.cert-row-static { cursor: default; }
+.cert-row-static:hover { transform: none; border-color: var(--dossier-line); background: inherit; }
