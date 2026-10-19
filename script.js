@@ -319,7 +319,7 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
   // Grappling rope — a tile that sits far across the page from the robot
   // (Experience, Education) gets a rope thrown at it from the robot's
   // hand; the robot then zips along the rope instead of walking.
-  const GRAPPLE_MIN_DIST = 400;
+  const GRAPPLE_MIN_DIST = 0; // every tile gets the rope
   let rope = null;
   function getRope() {
     if (!rope) {
