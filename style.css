@@ -2201,7 +2201,7 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 /* Education on phones: the left column dissolves so its two windows join the grid,
    giving the order Education, Certifications, Skills */
 @media (max-width: 860px) {
-  .exp-cert-row > div:first-child { display: contents; }
+  .edu-skills-col { display: contents; }
   #education { order: 1; }
   #certifications { order: 2; }
   #skills { order: 3; }
