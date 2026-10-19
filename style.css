@@ -803,7 +803,6 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
    text panel when it wanders behind it — keep the panel above it. */
 .about-page-section .win {
   position: relative;
-  z-index: 50;
 }
 .about-heading {
   font-family: var(--pixel);
@@ -1877,7 +1876,7 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
   position: fixed;
   left: 10px;
   top: 90px;
-  z-index: 40;
+  z-index: 60;
   pointer-events: auto;
   cursor: pointer;
   transition: top 0.16s ease-out, left 0.5s ease-in-out;
@@ -1972,11 +1971,11 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
    art, so it only gets a light trim to avoid overflow, not shrunk down
    like the small subpage side-companion (--char-scale-sm) or the car. */
 @media (max-width: 640px) {
-  :root { --char-scale: 1.15; --char-scale-sm: 0.7; --car-scale: 0.78; }
+  :root { --char-scale: 1.3; --char-scale-sm: 1; --car-scale: 0.78; }
   .car-road { height: 58px; }
 }
 @media (max-width: 400px) {
-  :root { --char-scale: 1; --char-scale-sm: 0.6; --car-scale: 0.65; }
+  :root { --char-scale: 1.2; --char-scale-sm: 0.9; --car-scale: 0.65; }
 }
 
 /* ============================================================
