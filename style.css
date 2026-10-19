@@ -2181,4 +2181,4 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 
 /* Certificates without a public verification link: plain rows, not links */
 .cert-row-static { cursor: default; }
-.cert-row-static:hover { transform: none; border-color: var(--dossier-line); background: inherit; }
+.cert-row-static:hover { background: transparent; }
