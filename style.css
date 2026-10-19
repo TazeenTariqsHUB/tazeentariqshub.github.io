@@ -2184,3 +2184,17 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 /* Certificates without a public verification link: plain rows, not links */
 .cert-row-static { cursor: default; }
 .cert-row-static:hover { background: transparent; }
+
+/* Phone pop-up (built by script.js on every page) */
+.phone-modal .pub-modal-dialog { max-width: 380px; }
+.phone-number {
+  font-family: var(--robo);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  color: var(--dossier-text);
+  margin: 0 0 0.3rem;
+  user-select: all;
+}
+.phone-note { margin-bottom: 0.9rem; }
+.pub-choice.phone-copy { width: 100%; background: none; font: inherit; cursor: pointer; text-align: left; }

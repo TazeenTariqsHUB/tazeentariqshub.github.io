@@ -808,3 +808,65 @@ if (labsModal && labsModalTrigger) {
     if (e.key === 'Escape' && labsModal.classList.contains('is-open')) closeLabsModal();
   });
 }
+
+// Phone icon in the top bar: on a laptop a tel: link does nothing useful,
+// so it opens a small window with the number instead — copy it, call it,
+// or send a message (which goes to email). Built here so every page gets
+// it without touching the HTML.
+(function () {
+  const phoneLinks = document.querySelectorAll('.topbar-contact a[href^="tel:"]');
+  if (!phoneLinks.length) return;
+  const tel = phoneLinks[0].getAttribute('href');            // tel:+923124205931
+  const raw = tel.replace('tel:', '');
+  const pretty = raw.replace(/^(\+92)(\d{3})(\d{7})$/, '$1 $2 $3');
+  const mailLink = document.querySelector('.topbar-contact a[href^="mailto:"]');
+  const mailto = mailLink ? mailLink.getAttribute('href') : 'mailto:Tazeentfk5@gmail.com';
+
+  const modal = document.createElement('div');
+  modal.className = 'pub-modal phone-modal';
+  modal.setAttribute('aria-hidden', 'true');
+  modal.innerHTML = `
+    <div class="pub-modal-backdrop"></div>
+    <div class="pub-modal-dialog win" role="dialog" aria-modal="true" aria-labelledby="phoneModalTitle">
+      <div class="win-header">
+        <span class="win-title" id="phoneModalTitle"><span class="win-idx">[ ☎ ]</span>CONTACT</span>
+        <button class="pub-modal-close" type="button" aria-label="Close">&times;</button>
+      </div>
+      <div class="win-body">
+        <p class="phone-number">${pretty}</p>
+        <p class="section-intro phone-note">Available on WhatsApp and by call.</p>
+        <div class="pub-choice-list">
+          <button class="pub-choice phone-copy" type="button">
+            <span><span class="pub-choice-name">Copy number</span><br><span class="pub-choice-sub">to your clipboard</span></span>
+            <span class="pub-choice-arrow" aria-hidden="true">⧉</span>
+          </button>
+          <a class="pub-choice" href="${tel}">
+            <span><span class="pub-choice-name">Call</span><br><span class="pub-choice-sub">opens your phone app</span></span>
+            <span class="pub-choice-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="pub-choice" href="${mailto}">
+            <span><span class="pub-choice-name">Message</span><br><span class="pub-choice-sub">goes to my email</span></span>
+            <span class="pub-choice-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+
+  const open = () => { modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false'); };
+  const close = () => { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); };
+  phoneLinks.forEach(a => a.addEventListener('click', e => { e.preventDefault(); open(); }));
+  modal.querySelector('.pub-modal-backdrop').addEventListener('click', close);
+  modal.querySelector('.pub-modal-close').addEventListener('click', close);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('is-open')) close(); });
+
+  const copyBtn = modal.querySelector('.phone-copy');
+  copyBtn.addEventListener('click', () => {
+    const done = () => {
+      copyBtn.querySelector('.pub-choice-name').textContent = 'Copied';
+      setTimeout(() => { copyBtn.querySelector('.pub-choice-name').textContent = 'Copy number'; }, 1400);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(raw).then(done, done);
+    else done();
+  });
+})();
