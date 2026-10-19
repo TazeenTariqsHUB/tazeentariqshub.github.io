@@ -2197,3 +2197,12 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 }
 .phone-note { margin-bottom: 0.9rem; }
 .pub-choice.phone-copy { width: 100%; background: none; font: inherit; cursor: pointer; text-align: left; }
+
+/* Education on phones: the left column dissolves so its two windows join the grid,
+   giving the order Education, Certifications, Skills */
+@media (max-width: 860px) {
+  .exp-cert-row > div:first-child { display: contents; }
+  #education { order: 1; }
+  #certifications { order: 2; }
+  #skills { order: 3; }
+}
