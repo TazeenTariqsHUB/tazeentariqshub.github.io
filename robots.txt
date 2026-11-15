@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tazeentariqshub.github.io/sitemap.xml
