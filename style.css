@@ -2483,5 +2483,5 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 }
 
 /* About: the robot stands under the photo instead of roaming the edge */
-.about-robot-slot { display: flex; justify-content: center; margin-top: 1.1rem; min-height: 90px; }
+.about-robot-slot { display: flex; justify-content: center; margin-top: 2.2rem; min-height: 90px; }
 .about-robot-slot .char-follow { position: relative !important; left: auto !important; top: auto !important; transition: none; }
