@@ -2504,3 +2504,11 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
   .talk-nophoto { grid-row: span 6; }
   .talk-nophoto .talk-meta { grid-row: 2; }
 }
+
+/* Research articles: subgrid rows so titles, blurbs and sources line up (2026-11-19) */
+@supports (grid-template-rows: subgrid) {
+  #articles .proj-grid { align-items: stretch; }
+  #articles .proj-grid .proj-item { display: grid; grid-template-rows: subgrid; grid-row: span 4; row-gap: 0.45rem; align-content: start; }
+  #articles .proj-grid .proj-item > * { margin: 0; }
+  #articles .proj-grid .project-stack { align-self: end; }
+}
