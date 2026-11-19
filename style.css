@@ -2439,3 +2439,9 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 .plain-header .win-title { font-size: 0.66rem; }
 .plain-body .section-intro { margin-bottom: 1rem; }
 .plain .win-entry + .win-entry { border-top: 1px solid var(--dossier-line); }
+
+/* Plain header spacing + no wrap of the index (2026-11-19) */
+.plain-header { margin-bottom: 1.4rem; }
+.plain-header .win-title { display: flex; align-items: center; gap: 0.6rem; white-space: nowrap; }
+.plain-body > .win-entry:first-child { padding-top: 0.2rem; }
+.plain .win-entry + .win-entry { margin-top: 1rem; padding-top: 1rem; }
