@@ -2460,3 +2460,11 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 .about-avatar span { font-family: var(--pixel); font-size: 0.5rem; line-height: 2; letter-spacing: 1px; color: var(--dossier-text-dim); }
 .about-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .about-avatar.has-photo { border-style: solid; border-color: var(--dossier-accent); }
+
+/* Speaking cards: reserve equal space so titles and text line up across a row (2026-11-19) */
+.talk-meta { min-height: 52px; align-content: flex-start; }
+.talk-topic { min-height: 2.75em; }
+.talk-event { min-height: 3.4em; }
+.talk-stance { min-height: 1.1em; }
+.talk-nophoto .talk-meta { min-height: 0; }
+.talk-nophoto .talk-topic, .talk-nophoto .talk-event { min-height: 0; }
