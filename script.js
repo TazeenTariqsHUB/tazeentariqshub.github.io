@@ -482,7 +482,8 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
   if (charFollow) {
     const FOLLOW_SCROLL_PER_STEP = 70; // px scrolled before taking a step
     const FOLLOW_STEP_SIZE = 24;       // px the character moves per step
-    const FOLLOW_TOP_MIN = 70;
+    // Start well below the heading so the robot stands beside the content, not the title
+    const FOLLOW_TOP_MIN = Math.round(window.innerHeight * 0.38);
     let followTop = FOLLOW_TOP_MIN;
     let lastStepScrollY = window.scrollY;
     let stepPulseTimer = null;

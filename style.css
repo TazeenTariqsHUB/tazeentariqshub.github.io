@@ -1846,7 +1846,7 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
   border-bottom-style: solid;
   outline: none;
 }
-.win, .section { scroll-margin-top: 84px; }
+.win, .plain, .section { scroll-margin-top: 84px; }
 
 .page-subtitle {
   font-family: var(--pixel);
@@ -2426,3 +2426,16 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 /* Speaking: softer topic colour, award inside the tag (2026-11-19) */
 .talk-topic { color: #cfe9d9; font-weight: 600; }
 .talk-win { color: #d98cbf; }
+
+/* Plain sections (Speaking + Research, 2026-11-19): no window chrome */
+.plain { margin: 0 0 2.2rem; }
+.plain:last-child { margin-bottom: 0; }
+.plain-header {
+  display: flex; align-items: center;
+  padding: 0 0 0.55rem;
+  margin-bottom: 1.1rem;
+  border-bottom: 1px solid var(--dossier-line);
+}
+.plain-header .win-title { font-size: 0.66rem; }
+.plain-body .section-intro { margin-bottom: 1rem; }
+.plain .win-entry + .win-entry { border-top: 1px solid var(--dossier-line); }
