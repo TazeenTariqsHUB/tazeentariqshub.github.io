@@ -2512,3 +2512,13 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
   #articles .proj-grid .proj-item > * { margin: 0; }
   #articles .proj-grid .project-stack { align-self: end; }
 }
+
+/* About: copy on the left, photo + robot on the right (2026-11-19) */
+.about-layout { grid-template-columns: 1fr 200px; }
+.about-side { order: 2; }
+.about-copy { order: 1; }
+@media (max-width: 700px) {
+  .about-layout { grid-template-columns: 1fr; }
+  .about-side { order: 1; }
+  .about-copy { order: 2; }
+}
