@@ -2222,3 +2222,190 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
   #certifications { order: 2; }
   #skills { order: 3; }
 }
+
+/* ============================================================
+   HOME — retro dark recolour (2026-11-19). Overrides the pastel
+   hero so Home matches the dark mono rooms. Later rules win.
+   ============================================================ */
+:root {
+  --sys-ink: #e9f5ee;
+  --sys-ink-dim: rgba(233, 245, 238, 0.78);
+  --home-blue: #7fb4e0;
+  --home-pink: #d98cbf;
+}
+.sys-hero {
+  color: var(--sys-ink);
+  background:
+    linear-gradient(160deg, #060907 0%, #0a1220 55%, #0b1a14 100%),
+    repeating-linear-gradient(0deg, rgba(127,207,159,0.07) 0 1px, transparent 1px 46px),
+    repeating-linear-gradient(90deg, rgba(127,207,159,0.07) 0 1px, transparent 1px 46px);
+  background-blend-mode: normal, screen, screen;
+}
+.sys-hero::before {
+  content: "";
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(127,207,159,0.06) 0 1px, transparent 1px 46px),
+    repeating-linear-gradient(90deg, rgba(127,207,159,0.06) 0 1px, transparent 1px 46px);
+}
+.sys-hero::after {
+  content: "";
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.18) 0 2px, transparent 2px 4px);
+  opacity: 0.5;
+}
+.sys-hero-glow {
+  background:
+    radial-gradient(ellipse 55% 40% at 15% 8%, rgba(127,207,159,0.18), transparent 70%),
+    radial-gradient(ellipse 50% 38% at 88% 88%, rgba(127,180,224,0.16), transparent 70%);
+}
+.sys-hero-dots span { background: var(--dossier-accent); box-shadow: 0 0 8px 2px rgba(127,207,159,0.5); }
+.sys-hero-dots span:nth-child(3n) { background: var(--home-pink); box-shadow: 0 0 8px 2px rgba(217,140,191,0.45); }
+.sys-topbar { color: var(--sys-ink-dim); border-bottom: 1px solid var(--dossier-line); }
+.sys-topbar-id { color: var(--dossier-accent); }
+.sys-hero .topbar-contact a:hover { color: var(--dossier-accent); }
+.sys-meta { color: var(--home-pink); }
+.sys-name { color: var(--sys-ink); text-shadow: 0 0 18px rgba(127,207,159,0.25); }
+.sys-role-label { color: var(--home-blue); }
+.sys-role-typed { color: var(--home-pink); }
+.sys-role-cursor { color: var(--home-blue); }
+.sys-desc { color: var(--sys-ink-dim); }
+.sys-more { color: var(--home-blue); border-bottom-color: var(--home-pink); }
+.sys-more:hover { color: var(--dossier-accent); }
+.char-caption { color: var(--sys-ink-dim); }
+.sys-menu-item {
+  border: 1px solid var(--dossier-line);
+  background: rgba(10, 20, 15, 0.72);
+  border-radius: 8px;
+}
+.sys-menu-item:hover, .sys-menu-item:focus-visible {
+  border-color: var(--dossier-accent);
+  background: rgba(14, 28, 20, 0.92);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.45), 0 0 0 1px rgba(127,207,159,0.25);
+}
+.sys-menu-idx { color: var(--home-pink); }
+.sys-menu-label { color: var(--sys-ink); }
+.sys-menu-desc { color: var(--sys-ink-dim); }
+.sys-btn { border-color: var(--dossier-accent); color: var(--sys-ink); }
+
+/* ============================================================
+   START SCREEN — robot says "Let's start", press START to enter
+   ============================================================ */
+.start-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 40%, rgba(127,207,159,0.10), transparent 70%),
+    linear-gradient(180deg, #050806 0%, #0a1220 100%);
+  color: var(--sys-ink);
+  transition: opacity 0.45s ease;
+}
+.start-screen::after {
+  content: "";
+  position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.22) 0 2px, transparent 2px 4px);
+}
+.start-screen.is-visible { display: flex; }
+.start-screen.fade-out { opacity: 0; pointer-events: none; }
+.start-inner {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 1.4rem;
+  text-align: center; padding: 2rem;
+}
+.start-kicker {
+  font-family: var(--pixel); font-size: 0.62rem; letter-spacing: 2px;
+  color: var(--dossier-accent); opacity: 0.85;
+}
+.start-char { margin: 1.5rem 0 2.2rem; }
+.start-char .char-speech { animation: startBob 1.6s ease-in-out infinite; }
+@keyframes startBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+.start-title {
+  font-family: var(--robo); font-weight: 800; letter-spacing: 1px;
+  font-size: clamp(1.4rem, 4vw, 2.2rem); color: var(--sys-ink);
+  text-shadow: 0 0 18px rgba(127,207,159,0.3);
+}
+.start-btn {
+  font-family: var(--pixel); font-size: 0.78rem; letter-spacing: 2px;
+  padding: 1rem 2.2rem;
+  color: #061009;
+  background: var(--dossier-accent);
+  border: 2px solid #0b1a14;
+  box-shadow: 4px 4px 0 #0b1a14, 0 0 22px rgba(127,207,159,0.35);
+  cursor: pointer;
+  animation: startPulse 1.4s ease-in-out infinite;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.start-btn:hover, .start-btn:focus-visible { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #0b1a14, 0 0 26px rgba(127,207,159,0.5); outline: none; }
+@keyframes startPulse { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.15); } }
+.start-hint { font-family: var(--pixel); font-size: 0.5rem; letter-spacing: 1px; color: var(--sys-ink-dim); opacity: 0.6; }
+.sys-hero-inner.is-waiting { animation: none; opacity: 0; }
+
+/* ============================================================
+   SPEAKING PAGE — stage log cards with photo or placeholder
+   ============================================================ */
+.talk-intro { max-width: 760px; margin: 0 auto 1.4rem; text-align: center; }
+.talk-stack { display: flex; flex-direction: column; gap: 1.6rem; }
+.talk-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 1.1rem;
+  align-items: stretch;
+}
+.talk {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 0.9rem;
+  border: 1px solid var(--dossier-line);
+  border-radius: 10px;
+  background: rgba(6, 12, 9, 0.75);
+  transition: border-color 0.2s, transform 0.2s;
+}
+.talk:hover { border-color: var(--dossier-accent); transform: translateY(-3px); }
+.talk-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--dossier-line);
+  border-radius: 6px;
+  background: #050806;
+  overflow: hidden;
+}
+.talk-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; filter: saturate(0.9) contrast(1.05); }
+.talk-photo::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.12) 0 2px, transparent 2px 4px);
+}
+.talk-photo.is-placeholder {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  border-style: dashed;
+  background:
+    repeating-linear-gradient(0deg, rgba(127,207,159,0.05) 0 2px, transparent 2px 4px),
+    linear-gradient(180deg, #070d0a, #050806);
+}
+.talk-photo.is-placeholder span {
+  font-family: var(--pixel); font-size: 0.55rem; line-height: 2; letter-spacing: 1px;
+  color: var(--dossier-text-dim); padding: 1rem;
+}
+.talk-body { min-width: 0; display: flex; flex-direction: column; }
+.talk-nophoto .talk-body { padding-top: 0.2rem; }
+.talk-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.7rem;
+  font-family: var(--pixel); font-size: 0.52rem; letter-spacing: 1px;
+  color: var(--dossier-accent); margin-bottom: 0.7rem;
+}
+.talk-tag { padding: 0.3rem 0.45rem; border: 1px solid var(--dossier-line); border-radius: 4px; }
+.talk-tag.is-upcoming { color: #d9b27a; border-color: rgba(217,178,122,0.5); }
+.talk-tag.is-win { color: #d98cbf; border-color: rgba(217,140,191,0.5); }
+.talk-date { color: var(--dossier-text-dim); }
+.talk-topic { font-family: var(--robo); font-weight: 700; font-size: 0.98rem; line-height: 1.35; color: var(--dossier-text); margin-bottom: 0.45rem; }
+.talk-event { font-family: var(--pixel); font-size: 0.52rem; line-height: 1.7; letter-spacing: 1px; color: var(--dossier-text-dim); margin-bottom: 0.55rem; }
+.talk-stance { font-family: var(--pixel); font-size: 0.5rem; letter-spacing: 1px; color: #7fb4e0; margin-bottom: 0.6rem; }
+.talk-desc { font-family: var(--mono); font-size: 0.95rem; line-height: 1.55; color: var(--dossier-text-dim); margin: 0; }
+@media (max-width: 640px) {
+  .talk-list { grid-template-columns: 1fr; }
+}
+}

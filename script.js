@@ -6,10 +6,38 @@
   const linesEl = document.getElementById('bootLines');
   const heroInner = document.querySelector('.sys-hero-inner');
 
+  const startScreen = document.getElementById('startScreen');
+  const startBtn = document.getElementById('startBtn');
+
   if (sessionStorage.getItem('bootSeen')) {
     overlay.remove();
+    if (startScreen) startScreen.remove();
     if (heroInner) heroInner.style.animationDelay = '0s';
     return;
+  }
+
+  // Hold the hero back until START is pressed
+  if (heroInner && startScreen) heroInner.classList.add('is-waiting');
+
+  function enterPortfolio() {
+    if (!startScreen) return;
+    startScreen.classList.add('fade-out');
+    if (heroInner) {
+      heroInner.classList.remove('is-waiting');
+      heroInner.style.animationDelay = '0.2s';
+    }
+    setTimeout(() => startScreen.remove(), 500);
+    document.removeEventListener('keydown', onStartKey);
+  }
+  function onStartKey(e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); enterPortfolio(); }
+  }
+  function showStart() {
+    if (!startScreen) return;
+    startScreen.classList.add('is-visible');
+    startScreen.setAttribute('aria-hidden', 'false');
+    if (startBtn) { startBtn.addEventListener('click', enterPortfolio, { once: true }); startBtn.focus({ preventScroll: true }); }
+    document.addEventListener('keydown', onStartKey);
   }
 
   const lines = ['INITIALIZING...', 'IDENTITY VERIFIED', 'SECURITY PROFILE LOADED', "WELCOME TO TAZEEN'S PORTFOLIO"];
@@ -22,7 +50,8 @@
     timers.forEach(clearTimeout);
     sessionStorage.setItem('bootSeen', '1');
     overlay.classList.add('fade-out');
-    if (heroInner) heroInner.style.animationDelay = '0s';
+    if (startScreen) showStart();
+    else if (heroInner) heroInner.style.animationDelay = '0s';
     setTimeout(() => overlay.remove(), 500);
   }
 
