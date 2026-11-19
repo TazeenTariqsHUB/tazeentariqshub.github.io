@@ -2539,3 +2539,15 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
   .about-layout { grid-template-columns: 1fr; }
   .about-side { width: 260px; margin: 0 auto; }
 }
+
+/* About: photo floats right, text wraps beside it then runs full width, justified (2026-11-19) */
+.about-layout { display: block; }
+.about-layout::after { content: ""; display: table; clear: both; }
+.about-side { float: right; width: 300px; margin: 0 0 1rem 2.4rem; position: relative; top: auto; }
+.about-copy { display: block; }
+.about-copy .about-text { max-width: none; text-align: justify; }
+.about-robot-slot { left: auto; right: -6px; top: 150px; }
+@media (max-width: 700px) {
+  .about-side { float: none; width: 260px; margin: 0 auto 1.4rem; }
+  .about-copy .about-text { text-align: left; }
+}
