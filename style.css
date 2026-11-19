@@ -2416,3 +2416,9 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 .sys-desc { font-size: 1rem; }
 .start-title { font-size: clamp(1.1rem, 2.8vw, 1.5rem); }
 .talk-intro { font-size: 0.92rem; }
+
+/* Tighter page head (2026-11-19) */
+.page-hero { padding: 0.2rem 1.5rem 0; }
+.page-hero .char-stage { margin-bottom: 0.3rem; }
+.section-tight { padding-top: 0.9rem; }
+.page-topbar { padding: 0.8rem 1.5rem; }
