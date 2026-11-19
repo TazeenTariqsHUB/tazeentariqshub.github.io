@@ -2485,3 +2485,22 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 /* About: the robot stands under the photo instead of roaming the edge */
 .about-robot-slot { display: flex; justify-content: center; margin-top: 2.2rem; min-height: 90px; }
 .about-robot-slot .char-follow { position: relative !important; left: auto !important; top: auto !important; transition: none; }
+
+/* Speaking cards: true row alignment with subgrid (2026-11-19).
+   Every card in a grid row shares the same track for photo, tag row,
+   title, venue, stance and summary, so each piece of text starts on the
+   same line as its neighbours no matter how long the title is. */
+.talk-meta, .talk-topic, .talk-event, .talk-stance { min-height: 0; }
+.talk-nophoto .talk-meta { min-height: 0; }
+@supports (grid-template-rows: subgrid) {
+  .talk { display: grid; grid-template-rows: subgrid; grid-row: span 6; row-gap: 0.45rem; align-content: start; }
+  .talk-body { display: contents; }
+  .talk-photo { grid-row: 1; margin-bottom: 0.35rem; }
+  .talk-meta { grid-row: 2; margin-bottom: 0; }
+  .talk-topic { grid-row: 3; margin-bottom: 0; }
+  .talk-event { grid-row: 4; margin-bottom: 0; }
+  .talk-stance { grid-row: 5; margin-bottom: 0; }
+  .talk-desc { grid-row: 6; }
+  .talk-nophoto { grid-row: span 6; }
+  .talk-nophoto .talk-meta { grid-row: 2; }
+}
