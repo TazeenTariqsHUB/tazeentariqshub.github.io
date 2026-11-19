@@ -2551,3 +2551,9 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
   .about-side { float: none; width: 260px; margin: 0 auto 1.4rem; }
   .about-copy .about-text { text-align: left; }
 }
+
+/* About: photo sits higher, float ends right under the caption (2026-11-19) */
+.about-side { margin-top: -1.6rem; margin-bottom: 0.4rem; }
+.about-side .about-avatar { margin-bottom: 0.6rem; }
+.about-side-meta { margin-bottom: 0; }
+@media (max-width: 700px) { .about-side { margin-top: 0; } }
