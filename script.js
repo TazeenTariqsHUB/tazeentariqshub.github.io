@@ -491,7 +491,8 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
     charFollow.style.top = `${followTop}px`;
 
     function takeFollowStep(dir) {
-      const max = FOLLOW_TOP_MIN + Math.max(0, window.innerHeight - 150);
+      // Never walk below the viewport: the robot stays fully on screen at the bottom of the page
+      const max = Math.max(FOLLOW_TOP_MIN, window.innerHeight - 120);
       followTop = Math.max(FOLLOW_TOP_MIN, Math.min(max, followTop + dir * FOLLOW_STEP_SIZE));
       charFollow.style.top = `${followTop}px`;
       // One deliberate leg swap per step — same "sync the pose to the
