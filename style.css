@@ -2462,7 +2462,7 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 .about-avatar.has-photo { border-style: solid; border-color: var(--dossier-accent); }
 
 /* Speaking cards: reserve equal space so titles and text line up across a row (2026-11-19) */
-.talk-meta { min-height: 52px; align-content: flex-start; }
+.talk-meta { min-height: 66px; align-content: flex-start; }
 .talk-topic { min-height: 2.75em; }
 .talk-event { min-height: 3.4em; }
 .talk-stance { min-height: 1.1em; }
