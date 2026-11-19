@@ -797,7 +797,7 @@ a.proj-item:hover .project-arrow { transform: translateX(4px); }
 
 /* About page */
 .about-hero { min-height: 40vh; }
-.about-page-section { max-width: 920px; }
+.about-page-section { max-width: 1080px; }
 /* The roaming companion (z-index 40, position: fixed) bumps around the
    whole screen on this page and would otherwise pass in front of the
    text panel when it wanders behind it — keep the panel above it. */
@@ -2468,3 +2468,16 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 .talk-stance { min-height: 1.1em; }
 .talk-nophoto .talk-meta { min-height: 0; }
 .talk-nophoto .talk-topic, .talk-nophoto .talk-event { min-height: 0; }
+
+/* About: photo left, copy right (2026-11-19) */
+.about-layout { display: grid; grid-template-columns: 200px 1fr; gap: 2.2rem; align-items: start; }
+.about-side { position: sticky; top: 90px; text-align: center; }
+.about-side .about-avatar { width: 170px; height: 170px; margin: 0 auto 0.9rem; }
+.about-side-name { font-family: var(--pixel); font-size: 0.6rem; letter-spacing: 1.5px; color: var(--dossier-text); margin-bottom: 0.4rem; }
+.about-side-meta { font-family: var(--pixel); font-size: 0.48rem; letter-spacing: 1px; color: var(--dossier-text-dim); line-height: 1.8; }
+.about-copy .about-text { text-align: left; max-width: 62ch; }
+.about-copy .about-text + .about-text { margin-top: 1rem; }
+@media (max-width: 700px) {
+  .about-layout { grid-template-columns: 1fr; gap: 1.4rem; }
+  .about-side { position: static; }
+}
