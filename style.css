@@ -2445,3 +2445,18 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 .plain-header .win-title { display: flex; align-items: center; gap: 0.6rem; white-space: nowrap; }
 .plain-body > .win-entry:first-child { padding-top: 0.2rem; }
 .plain .win-entry + .win-entry { margin-top: 1rem; padding-top: 1rem; }
+
+/* Open layout everywhere (2026-11-19): cards size to content; About avatar */
+.proj-grid { align-items: start; }
+.about-page-section .plain { position: relative; }
+.about-avatar {
+  width: 150px; height: 150px; margin: 0.2rem auto 1.2rem;
+  border-radius: 50%;
+  border: 2px dashed var(--dossier-line);
+  background: radial-gradient(circle at 50% 40%, rgba(var(--dossier-accent-rgb), 0.12), transparent 70%), #070d0a;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  overflow: hidden;
+}
+.about-avatar span { font-family: var(--pixel); font-size: 0.5rem; line-height: 2; letter-spacing: 1px; color: var(--dossier-text-dim); }
+.about-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.about-avatar.has-photo { border-style: solid; border-color: var(--dossier-accent); }
