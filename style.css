@@ -2406,7 +2406,6 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
   .talk-list { grid-template-columns: 1fr; }
   .talk-photo { aspect-ratio: 16 / 10; }
 }
-}
 
 /* Heading scale-down (2026-11-19): page titles were overwhelming */
 .page-title { font-size: clamp(1.15rem, 2.4vw, 1.55rem); letter-spacing: 0.5px; margin-top: 0.3rem; }
