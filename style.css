@@ -2422,3 +2422,7 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 .page-hero .char-stage { margin-bottom: 0.3rem; }
 .section-tight { padding-top: 0.9rem; }
 .page-topbar { padding: 0.8rem 1.5rem; }
+
+/* Speaking: softer topic colour, award inside the tag (2026-11-19) */
+.talk-topic { color: #cfe9d9; font-weight: 600; }
+.talk-win { color: #d98cbf; }
