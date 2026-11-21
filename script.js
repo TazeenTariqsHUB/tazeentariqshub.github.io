@@ -490,11 +490,30 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
     let followFootLeft = true;
     charFollow.style.top = `${followTop}px`;
 
-    function takeFollowStep(dir) {
-      // Never walk below the viewport: the robot stays fully on screen at the bottom of the page
-      const max = Math.max(FOLLOW_TOP_MIN, window.innerHeight - 120);
-      followTop = Math.max(FOLLOW_TOP_MIN, Math.min(max, followTop + dir * FOLLOW_STEP_SIZE));
+    // Lowest point the robot may stand: fully on screen, and never below the
+    // footer's top rule once that line scrolls into view.
+    const footerEl = document.querySelector('footer');
+    function followCeiling() {
+      let max = Math.max(FOLLOW_TOP_MIN, window.innerHeight - 120);
+      if (footerEl) {
+        const lineTop = footerEl.getBoundingClientRect().top;
+        const h = charFollow.offsetHeight || 72;
+        max = Math.min(max, lineTop - h - 10);
+      }
+      return Math.max(60, max);
+    }
+    function applyFollowTop() {
       charFollow.style.top = `${followTop}px`;
+    }
+    function clampToFooter() {
+      const c = followCeiling();
+      if (followTop > c) { followTop = c; applyFollowTop(); }
+    }
+
+    function takeFollowStep(dir) {
+      const max = followCeiling();
+      followTop = Math.max(Math.min(FOLLOW_TOP_MIN, max), Math.min(max, followTop + dir * FOLLOW_STEP_SIZE));
+      applyFollowTop();
       // One deliberate leg swap per step — same "sync the pose to the
       // move" fix as the click-to-walk sequence, not an independent
       // animation running on its own clock.
@@ -517,12 +536,15 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
         lastStepScrollY -= FOLLOW_SCROLL_PER_STEP;
         takeFollowStep(-1);
       }
+      clampToFooter();
     }
     // Roaming pages (About) skip scroll-stepping entirely — free-roam
     // already covers vertical movement, and the two would otherwise
     // fight over the same left/top transition timing.
     if (!charFollow.classList.contains('roams')) {
       window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', clampToFooter);
+      clampToFooter();
 
     }
 
