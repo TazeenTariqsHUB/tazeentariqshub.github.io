@@ -2320,9 +2320,10 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
   font-family: var(--pixel); font-size: 0.62rem; letter-spacing: 2px;
   color: var(--dossier-accent); opacity: 0.85;
 }
-.start-char { margin: 1.5rem 0 2.2rem; }
-.start-char .char-speech { animation: startBob 1.6s ease-in-out infinite; }
-@keyframes startBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+.start-char { margin: 4.2rem 0 2.2rem; }
+/* Keep the bubble centred over the robot while it bobs (translateX must stay in every keyframe) */
+.start-char .char-speech { top: -30px; animation: startBob 1.6s ease-in-out infinite; }
+@keyframes startBob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-4px); } }
 .start-title {
   font-family: var(--robo); font-weight: 800; letter-spacing: 1px;
   font-size: clamp(1.4rem, 4vw, 2.2rem); color: var(--sys-ink);
