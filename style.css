@@ -2559,7 +2559,18 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 .about-side-meta { margin-bottom: 0; }
 @media (max-width: 700px) { .about-side { margin-top: 0; } }
 
-/* Robot docked beside the page heading on subpages (2026-11-27) */
-.hero-row { display: flex; align-items: flex-end; justify-content: center; gap: 1.1rem; padding-top: 1.6rem; }
-.hero-row .page-title { margin: 0; }
-.char-follow.in-hero { position: relative !important; left: auto !important; top: auto !important; transition: none; }
+/* Robot docked beside the page heading on subpages (2026-11-27).
+   Small, sitting on the title's baseline just left of the word. */
+.hero-row { display: flex; align-items: flex-end; justify-content: center; gap: 0.7rem; padding-top: 0.6rem; }
+.hero-row .page-title { margin: 0; line-height: 1.1; }
+.char-follow.in-hero {
+  position: relative !important; left: auto !important; top: auto !important;
+  width: 32px; height: 44px; flex: none; transition: none; margin-bottom: 2px;
+}
+.char-follow.in-hero .char-stage {
+  --char-scale-sm: 0.6;
+  position: absolute; left: 50%; bottom: 0; margin-left: -26px;
+}
+.char-follow.in-hero .char-speech { display: none; }
+/* Invisible twin on the right so the title itself stays centred */
+.hero-row::after { content: ""; width: 32px; flex: none; }
