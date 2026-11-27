@@ -731,7 +731,7 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
       ? '<span class="rp-desk"></span><span class="rp-monitor"><i></i><i></i><i></i></span>'
       : ACTION === 'reading'
         ? '<span class="rp-book"><i></i><i></i></span>'
-        : '<span class="rp-desk"></span><span class="rp-paper"><i></i><i></i><i></i></span><span class="rp-pen"></span>';
+        : '<span class="rp-chair"></span><span class="rp-desk"></span><span class="rp-paper"><i></i><i></i><i></i></span><span class="rp-pen"></span>';
     charFollow.appendChild(props);
   }
   if (body.classList.contains('page-about') && speech) {
