@@ -717,8 +717,42 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
     });
   }
 
+  // Page-specific robot props: Work = desk + computer, Education = book,
+  // Research = paper + pen. Clicking the robot plays that page's action.
+  const body = document.body;
+  const ACTION = body.classList.contains('page-education') ? 'reading'
+    : body.classList.contains('page-research') ? 'writing'
+    : body.classList.contains('page-work') ? 'working' : null;
+  if (charFollow && ACTION) {
+    const props = document.createElement('span');
+    props.className = 'robo-props robo-' + ACTION;
+    props.setAttribute('aria-hidden', 'true');
+    props.innerHTML = ACTION === 'working'
+      ? '<span class="rp-desk"></span><span class="rp-monitor"><i></i><i></i><i></i></span>'
+      : ACTION === 'reading'
+        ? '<span class="rp-book"><i></i><i></i></span>'
+        : '<span class="rp-paper"><i></i><i></i><i></i></span><span class="rp-pen"></span>';
+    charFollow.appendChild(props);
+  }
+  if (body.classList.contains('page-about') && speech) {
+    speech.textContent = 'TAZEEN HERE!';
+    setTimeout(() => {
+      speech.classList.add('is-visible');
+      setTimeout(() => speech.classList.remove('is-visible'), 2400);
+    }, 900);
+  }
+  if (charFollow && ACTION) {
+    let acting = false;
+    charFollow.addEventListener('click', () => {
+      if (acting) return;
+      acting = true;
+      charFollow.classList.add('is-acting');
+      setTimeout(() => { charFollow.classList.remove('is-acting'); acting = false; }, 3200);
+    });
+  }
+
   // Tap the robot (or the car, on Projects) to say hi and give a wave
-  const tapTarget = walkTrack || charFollow || carScene;
+  const tapTarget = ACTION ? null : (walkTrack || charFollow || carScene);
   if (tapTarget && speech) {
     let waving = false;
     tapTarget.addEventListener('click', () => {
@@ -730,7 +764,7 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
         speech.classList.remove('is-visible');
         if (armR) armR.classList.remove('is-pointing', 'is-waving');
         waving = false;
-      }, 1100);
+      }, body.classList.contains('page-about') ? 2000 : 1100);
     });
   }
 })();

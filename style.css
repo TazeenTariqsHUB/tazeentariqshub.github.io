@@ -2593,3 +2593,146 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
   box-shadow: 0 -3px 0 0 #d98cbf;
 }
 .page-speaking .hero-row::after { width: 40px; }
+
+/* Heading robots a touch bigger (2026-11-27): scale 0.6 -> 0.7 */
+.char-follow.in-hero { width: 37px; height: 51px; }
+.char-follow.in-hero .char-stage { --char-scale-sm: 0.7; }
+.hero-row::after { width: 37px; }
+
+/* Speaking page: slim brown wooden podium, and the robot debates
+   (emphatic arm gestures + head nods) instead of waving (2026-11-27) */
+.page-speaking .char-follow.in-hero { width: 44px; }
+.page-speaking .hero-row::after { width: 44px; }
+.page-speaking .char-follow.in-hero::after {           /* podium */
+  width: 20px; height: 22px;
+  background:
+    linear-gradient(90deg, transparent 0 7px, rgba(0,0,0,0.22) 7px 9px, transparent 9px 11px, rgba(255,255,255,0.08) 11px 13px, transparent 13px),
+    linear-gradient(180deg, #b07a45 0 3px, #3e2714 3px 4px, #7a4a24 4px 100%);
+  border: 2px solid #2a1a0d;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.35);
+}
+.page-speaking .char-follow.in-hero::before {          /* mic stem */
+  left: calc(50% + 5px); bottom: 25px; height: 8px;
+}
+.page-speaking .char-follow.in-hero .char-arm-r,
+.page-speaking .char-follow.in-hero .char-arm-r.is-waving {
+  transform-origin: 36px 32px;
+  animation: debateArm 2.4s steps(1) infinite;
+}
+.page-speaking .char-follow.in-hero .char-head {
+  animation: debateNod 2.4s ease-in-out infinite;
+}
+@keyframes debateArm {
+  0%, 40%, 100% {                      /* arm down, resting on the podium */
+    box-shadow: 36px 32px 0 var(--char-suit), 40px 32px 0 var(--char-suit),
+                36px 36px 0 var(--char-suit), 40px 36px 0 var(--char-suit),
+                40px 40px 0 var(--char-dark);
+    transform: rotate(0deg);
+  }
+  10%, 20% {                           /* finger raised: "my point is..." */
+    box-shadow: 36px 32px 0 var(--char-suit), 40px 28px 0 var(--char-suit),
+                44px 24px 0 var(--char-suit), 48px 20px 0 var(--dossier-accent);
+    transform: rotate(0deg);
+  }
+  15%, 25% {
+    box-shadow: 36px 32px 0 var(--char-suit), 40px 28px 0 var(--char-suit),
+                44px 24px 0 var(--char-suit), 48px 20px 0 var(--dossier-accent);
+    transform: rotate(14deg);
+  }
+  55%, 65%, 75% {                      /* hand chopping forward to stress it */
+    box-shadow: 36px 32px 0 var(--char-suit), 40px 32px 0 var(--char-suit),
+                44px 32px 0 var(--char-suit), 48px 32px 0 var(--dossier-accent);
+    transform: rotate(-10deg);
+  }
+  60%, 70%, 80% {
+    box-shadow: 36px 32px 0 var(--char-suit), 40px 32px 0 var(--char-suit),
+                44px 32px 0 var(--char-suit), 48px 32px 0 var(--dossier-accent);
+    transform: rotate(8deg);
+  }
+}
+@keyframes debateNod {
+  0%, 45%, 100% { transform: translateY(0); }
+  55%, 65%, 75% { transform: translateY(1px); }
+  60%, 70%, 80% { transform: translateY(-1px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-speaking .char-follow.in-hero .char-arm-r,
+  .page-speaking .char-follow.in-hero .char-head { animation: none; }
+}
+
+/* ============================================================
+   Heading robot props + click actions (2026-11-27)
+   Education: reads a book · Research: writes · Work: types at a desk
+   ============================================================ */
+.robo-props { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.robo-props i { display: block; }
+
+/* Education — open book appears in front of the chest while reading */
+.rp-book {
+  position: absolute; left: 50%; bottom: 13px; width: 22px; height: 10px;
+  transform: translateX(-50%) scale(0.3); opacity: 0;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+  display: flex; gap: 2px; padding: 0 1px;
+  background: #8a4b5e; border: 2px solid var(--char-dark);
+}
+.rp-book i { flex: 1; background: #eef2ee; margin: 1px 0;
+  background-image: repeating-linear-gradient(180deg, transparent 0 2px, #9aa6bd 2px 3px); }
+.is-acting .rp-book { transform: translateX(-50%) scale(1); opacity: 1; animation: bookBob 0.9s ease-in-out 0.25s infinite; }
+@keyframes bookBob { 50% { transform: translateX(-50%) translateY(-1px) rotate(-3deg); } }
+
+/* Research — paper and pen; lines get written while acting */
+.rp-paper {
+  position: absolute; left: 50%; bottom: 10px; width: 18px; height: 14px;
+  transform: translateX(-50%) scale(0.3); opacity: 0;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+  background: #eef2ee; border: 2px solid var(--char-dark); padding: 2px 2px 0;
+}
+.rp-paper i { height: 1px; width: 0; background: #33415e; margin-bottom: 2px; }
+.rp-pen {
+  position: absolute; left: 50%; bottom: 17px; width: 2px; height: 9px;
+  background: #d98cbf; box-shadow: 0 2px 0 0 var(--char-dark);
+  transform: rotate(25deg); opacity: 0; transition: opacity 0.2s;
+}
+.is-acting .rp-paper { transform: translateX(-50%) scale(1); opacity: 1; }
+.is-acting .rp-paper i { animation: writeLine 0.9s steps(6) forwards; }
+.is-acting .rp-paper i:nth-child(2) { animation-delay: 0.9s; }
+.is-acting .rp-paper i:nth-child(3) { animation-delay: 1.8s; }
+@keyframes writeLine { to { width: 100%; } }
+.is-acting .rp-pen { opacity: 1; animation: penMove 0.9s steps(6) 3; }
+@keyframes penMove {
+  0%   { transform: translate(-7px, 0) rotate(25deg); }
+  100% { transform: translate(5px, 0) rotate(25deg); }
+}
+
+/* Work — always at a desk with a computer; screen comes alive while working */
+.page-work .char-follow.in-hero { width: 58px; }
+.page-work .char-follow.in-hero .char-stage { left: 18px; }
+.page-work .hero-row::after { width: 58px; }
+.rp-desk {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 13px;
+  background: linear-gradient(180deg, #7fcf9f 0 3px, #24463a 3px 100%);
+  border: 2px solid var(--char-dark);
+}
+.rp-monitor {
+  position: absolute; right: 3px; bottom: 15px; width: 20px; height: 15px;
+  background: #0b1a14; border: 2px solid var(--char-dark);
+  box-shadow: inset 0 0 0 1px #5a6b8c;
+  padding: 3px 3px 0;
+}
+.rp-monitor::after {               /* stand */
+  content: ""; position: absolute; left: 50%; bottom: -4px; width: 4px; height: 3px;
+  margin-left: -2px; background: var(--char-dark);
+}
+.rp-monitor i { height: 1px; width: 30%; background: #7fcf9f; margin-bottom: 2px; opacity: 0.5; }
+.is-acting .rp-monitor { box-shadow: inset 0 0 0 1px #7fcf9f, 0 0 8px rgba(127,207,159,0.45); }
+.is-acting .rp-monitor i { opacity: 1; animation: typeLine 0.7s steps(4) infinite; }
+.is-acting .rp-monitor i:nth-child(2) { animation-delay: 0.23s; }
+.is-acting .rp-monitor i:nth-child(3) { animation-delay: 0.46s; }
+@keyframes typeLine { 0% { width: 10%; } 100% { width: 100%; } }
+
+/* While acting, the robot bobs gently as if busy */
+.char-follow.in-hero.is-acting .char-stage { animation: charBusy 0.45s ease-in-out infinite; }
+@keyframes charBusy {
+  0%, 100% { transform: scale(var(--char-scale-sm, 0.6)) translateY(0); }
+  50% { transform: scale(var(--char-scale-sm, 0.6)) translateY(-1px); }
+}
