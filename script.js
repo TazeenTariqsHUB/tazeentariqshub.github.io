@@ -545,6 +545,16 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', clampToFooter);
       clampToFooter();
+      // Stand right beside the content column instead of the far screen edge
+      function placeBesideContent() {
+        const col = document.querySelector('.plain, .win, main .section');
+        if (!col) return;
+        const w = charFollow.offsetWidth || 60;
+        const left = Math.max(10, Math.round(col.getBoundingClientRect().left - w - 28));
+        charFollow.style.left = `${left}px`;
+      }
+      placeBesideContent();
+      window.addEventListener('resize', placeBesideContent);
 
     }
 
