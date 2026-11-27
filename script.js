@@ -479,6 +479,19 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
   // as you scroll — a footstep per threshold crossed — rather than
   // gliding continuously in lockstep with the scroll position.
   const charFollow = document.getElementById('charFollow');
+  // Subpages: the robot stands beside the page heading and stays there
+  // (no more walking down the side as you scroll). About keeps its slot by the photo.
+  const heroTitle = document.querySelector('.page-hero .page-title');
+  const robotInSlot = charFollow && charFollow.closest('.about-robot-slot');
+  const robotDocked = !!(charFollow && heroTitle && !robotInSlot);
+  if (robotDocked) {
+    const row = document.createElement('div');
+    row.className = 'hero-row';
+    heroTitle.parentNode.insertBefore(row, heroTitle);
+    row.appendChild(charFollow);
+    row.appendChild(heroTitle);
+    charFollow.classList.add('in-hero');
+  }
   if (charFollow) {
     const FOLLOW_SCROLL_PER_STEP = 70; // px scrolled before taking a step
     const FOLLOW_STEP_SIZE = 24;       // px the character moves per step
@@ -541,7 +554,7 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
     // Roaming pages (About) skip scroll-stepping entirely — free-roam
     // already covers vertical movement, and the two would otherwise
     // fight over the same left/top transition timing.
-    if (!charFollow.classList.contains('roams')) {
+    if (!charFollow.classList.contains('roams') && !robotDocked && !robotInSlot) {
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', clampToFooter);
       clampToFooter();
