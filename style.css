@@ -2574,3 +2574,22 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 .char-follow.in-hero .char-speech { display: none; }
 /* Invisible twin on the right so the title itself stays centred */
 .hero-row::after { content: ""; width: 32px; flex: none; }
+
+/* Speaking page: the heading robot stands at a little pixel podium */
+.page-speaking .char-follow.in-hero { width: 40px; }
+.page-speaking .char-follow.in-hero::after {           /* podium */
+  content: ""; position: absolute; z-index: 3;
+  left: 50%; bottom: 0; transform: translateX(-50%);
+  width: 30px; height: 16px;
+  background: linear-gradient(180deg, #7fcf9f 0 3px, #24463a 3px 100%);
+  border: 2px solid var(--char-dark);
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.35);
+  image-rendering: pixelated;
+}
+.page-speaking .char-follow.in-hero::before {          /* mic stem */
+  content: ""; position: absolute; z-index: 4;
+  left: calc(50% + 7px); bottom: 18px;
+  width: 2px; height: 10px; background: #cfd8d2;
+  box-shadow: 0 -3px 0 0 #d98cbf;
+}
+.page-speaking .hero-row::after { width: 40px; }
