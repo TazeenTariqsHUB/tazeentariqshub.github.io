@@ -2561,5 +2561,5 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 
 /* Side robot: larger on wide screens, where the gutter has room (2026-11-27) */
 @media (min-width: 1200px) {
-  .char-follow { --char-scale-sm: 1.8; }
+  .char-follow { --char-scale-sm: 1.5; }
 }
