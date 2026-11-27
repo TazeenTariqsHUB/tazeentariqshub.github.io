@@ -2753,3 +2753,20 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 .page-education .rp-book i:last-child { transform-origin: 0 50%; }
 .page-education .is-acting .rp-book i:last-child { animation: pageTurn 5.6s ease-in-out infinite; }
 @keyframes pageTurn { 0%, 80% { transform: scaleX(1); } 88% { transform: scaleX(-1); } 96%, 100% { transform: scaleX(1); } }
+
+/* Work: drop the robot so its legs are hidden behind the desk front */
+.page-work .char-follow.in-hero .char-stage { bottom: -3px; margin-bottom: 0; }
+.page-work .char-follow.in-hero { overflow: hidden; height: 58px; }
+
+/* Research: robot sits at a desk, writing on a sheet that lies on the desktop */
+.page-research .char-follow.in-hero { width: 58px; height: 58px; overflow: hidden; }
+.page-research .hero-row::after { width: 58px; }
+.page-research .char-follow.in-hero .char-stage { left: 18px; bottom: -9px; margin-bottom: 0; }
+.page-research .rp-desk { height: 16px; }
+.page-research .rp-paper {
+  left: auto; right: 4px; bottom: 16px; width: 20px; height: 8px; padding: 1px 2px 0;
+  transform: skewX(-20deg) scale(1); opacity: 1; border-width: 1px;
+}
+.page-research .rp-paper i { margin-bottom: 1px; }
+.page-research .is-acting .rp-paper { transform: skewX(-20deg) scale(1); }
+.page-research .rp-pen { left: auto; right: 14px; bottom: 20px; opacity: 1; }
