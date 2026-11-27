@@ -731,7 +731,7 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
     props.innerHTML = ACTION === 'working'
       ? '<span class="rp-desk"></span><span class="rp-monitor"><i></i><i></i><i></i></span>'
       : ACTION === 'building'
-        ? '<span class="rp-block b1"></span><span class="rp-block b2"></span><span class="rp-block b3"></span>'
+        ? '<span class="rp-floor"></span><span class="rp-loose l1"></span><span class="rp-loose l2"></span><span class="rp-loose l3"></span><span class="rp-block b1"></span><span class="rp-block b2"></span><span class="rp-block b3"></span>'
       : ACTION === 'reading'
         ? '<span class="rp-book"><i></i><i></i></span>'
         : '<span class="rp-chair"></span><span class="rp-desk"></span><span class="rp-paper"><i></i><i></i><i></i></span><span class="rp-pen"></span>';
@@ -753,16 +753,26 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
   // One JS clock drives every step so the blocks and the cheer stay in sync.
   if (charFollow && ACTION === 'building') {
     const BUILD_STEPS = ['b-1', 'b-2', 'b-3'];
+    // The robot box clips (so it can sit), so the yell bubble lives outside it
+    const yell = document.createElement('span');
+    yell.className = 'robo-yell';
+    yell.textContent = 'YAAAAAA!';
+    yell.setAttribute('aria-hidden', 'true');
+    charFollow.parentNode.insertBefore(yell, charFollow);
     function buildLoop() {
       charFollow.classList.remove('b-1', 'b-2', 'b-3', 'is-cheering');
       BUILD_STEPS.forEach((cls, i) => setTimeout(() => charFollow.classList.add(cls), 500 + i * 700));
       setTimeout(() => {
         charFollow.classList.add('is-cheering');
-        if (speech) speech.classList.add('is-visible');
+        if (yell) {
+          yell.style.left = `${charFollow.offsetLeft + 14}px`;
+          yell.style.top = `${charFollow.offsetTop - 20}px`;
+          yell.classList.add('is-visible');
+        }
         if (armR) armR.classList.add('is-pointing');
       }, 500 + 3 * 700);
       setTimeout(() => {
-        if (speech) speech.classList.remove('is-visible');
+        if (yell) yell.classList.remove('is-visible');
         if (armR) armR.classList.remove('is-pointing');
       }, 500 + 3 * 700 + 1400);
     }

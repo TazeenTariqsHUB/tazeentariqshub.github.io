@@ -2814,3 +2814,29 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 .rp-block.b3 { bottom: 24px; right: 1px; }
 .page-projects .char-follow.in-hero .char-speech { font-size: 9px; top: -30px; padding: 3px 5px; }
 .page-projects .char-follow.in-hero .char-speech { background: #7fcf9f; color: #0b1a14; font-weight: 700; }
+
+/* Projects v2: robot SITS on the floor (legs hidden), loose blocks around it,
+   and it stacks a small tower in front-right */
+.page-projects .char-follow.in-hero { width: 72px; height: 50px; overflow: hidden; }
+.page-projects .hero-row::after { width: 72px; }
+.page-projects .char-follow.in-hero .char-stage { left: 30px; bottom: -11px; margin-bottom: 0; }
+.page-projects .char-follow.in-hero .char-speech { display: none; }
+.page-projects .hero-row { overflow: visible; }
+.rp-floor { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: #24463a; border-top: 2px solid #7fcf9f; z-index: 4; }
+.rp-loose { position: absolute; bottom: 4px; width: 9px; height: 8px; border: 2px solid var(--char-dark); z-index: 5; }
+.rp-loose.l1 { left: 2px;  background: #d98cbf; }
+.rp-loose.l2 { left: 11px; background: #7fb4e0; height: 6px; }
+.rp-loose.l3 { left: 5px; bottom: 12px; background: #e8c46a; transform: rotate(12deg); }
+.rp-block { z-index: 5; width: 11px; height: 9px; }
+.rp-block.b1 { bottom: 4px;  right: 3px; }
+.rp-block.b2 { bottom: 13px; right: 4px; }
+.rp-block.b3 { bottom: 22px; right: 2px; }
+.page-projects .hero-row { position: relative; }
+.robo-yell {
+  position: absolute; z-index: 6; pointer-events: none;
+  font-family: var(--pixel); font-size: 9px; font-weight: 700; letter-spacing: 1px;
+  color: #0b1a14; background: #7fcf9f; border: 2px solid var(--char-dark);
+  padding: 3px 5px; white-space: nowrap;
+  opacity: 0; transform: scale(0.4); transition: transform 0.18s ease, opacity 0.15s;
+}
+.robo-yell.is-visible { opacity: 1; transform: scale(1); }
