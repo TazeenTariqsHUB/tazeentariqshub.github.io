@@ -742,10 +742,11 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
     }, 900);
   }
   // Education: open the book and keep reading as soon as the page loads
-  if (charFollow && ACTION === 'reading') {
+  // Research: keep writing continuously from page load
+  if (charFollow && (ACTION === 'reading' || ACTION === 'writing')) {
     setTimeout(() => charFollow.classList.add('is-acting'), 700);
   }
-  if (charFollow && ACTION && ACTION !== 'reading') {
+  if (charFollow && ACTION === 'working') {
     let acting = false;
     charFollow.addEventListener('click', () => {
       if (acting) return;

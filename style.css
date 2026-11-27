@@ -2694,11 +2694,14 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
   transform: rotate(25deg); opacity: 0; transition: opacity 0.2s;
 }
 .is-acting .rp-paper { transform: translateX(-50%) scale(1); opacity: 1; }
-.is-acting .rp-paper i { animation: writeLine 0.9s steps(6) forwards; }
-.is-acting .rp-paper i:nth-child(2) { animation-delay: 0.9s; }
-.is-acting .rp-paper i:nth-child(3) { animation-delay: 1.8s; }
-@keyframes writeLine { to { width: 100%; } }
-.is-acting .rp-pen { opacity: 1; animation: penMove 0.9s steps(6) 3; }
+/* Continuous writing: three lines fill one after another, then the page clears and it starts again */
+.is-acting .rp-paper i { animation: writeLine1 3.6s steps(24) infinite; }
+.is-acting .rp-paper i:nth-child(2) { animation-name: writeLine2; }
+.is-acting .rp-paper i:nth-child(3) { animation-name: writeLine3; }
+@keyframes writeLine1 { 0% { width: 0; } 25%, 92% { width: 100%; } 100% { width: 0; } }
+@keyframes writeLine2 { 0%, 25% { width: 0; } 50%, 92% { width: 100%; } 100% { width: 0; } }
+@keyframes writeLine3 { 0%, 50% { width: 0; } 75%, 92% { width: 70%; } 100% { width: 0; } }
+.is-acting .rp-pen { opacity: 1; animation: penMove 0.9s steps(6) infinite; }
 @keyframes penMove {
   0%   { transform: translate(-7px, 0) rotate(25deg); }
   100% { transform: translate(5px, 0) rotate(25deg); }
