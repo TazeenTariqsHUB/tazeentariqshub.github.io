@@ -2558,3 +2558,8 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 .about-side .about-avatar { margin-bottom: 0.6rem; }
 .about-side-meta { margin-bottom: 0; }
 @media (max-width: 700px) { .about-side { margin-top: 0; } }
+
+/* Side robot: larger on wide screens, where the gutter has room (2026-11-27) */
+@media (min-width: 1200px) {
+  .char-follow { --char-scale-sm: 1.8; }
+}
