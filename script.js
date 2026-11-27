@@ -722,13 +722,16 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
   const body = document.body;
   const ACTION = body.classList.contains('page-education') ? 'reading'
     : body.classList.contains('page-research') ? 'writing'
-    : body.classList.contains('page-work') ? 'working' : null;
+    : body.classList.contains('page-work') ? 'working'
+    : body.classList.contains('page-projects') ? 'building' : null;
   if (charFollow && ACTION) {
     const props = document.createElement('span');
     props.className = 'robo-props robo-' + ACTION;
     props.setAttribute('aria-hidden', 'true');
     props.innerHTML = ACTION === 'working'
       ? '<span class="rp-desk"></span><span class="rp-monitor"><i></i><i></i><i></i></span>'
+      : ACTION === 'building'
+        ? '<span class="rp-block b1"></span><span class="rp-block b2"></span><span class="rp-block b3"></span>'
       : ACTION === 'reading'
         ? '<span class="rp-book"><i></i><i></i></span>'
         : '<span class="rp-chair"></span><span class="rp-desk"></span><span class="rp-paper"><i></i><i></i><i></i></span><span class="rp-pen"></span>';
@@ -745,6 +748,26 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
   // Research: keep writing continuously from page load
   if (charFollow && (ACTION === 'reading' || ACTION === 'writing')) {
     setTimeout(() => charFollow.classList.add('is-acting'), 700);
+  }
+  // Projects: stack three blocks, then throw an arm up and yell YAAAAAA!
+  // One JS clock drives every step so the blocks and the cheer stay in sync.
+  if (charFollow && ACTION === 'building') {
+    const BUILD_STEPS = ['b-1', 'b-2', 'b-3'];
+    function buildLoop() {
+      charFollow.classList.remove('b-1', 'b-2', 'b-3', 'is-cheering');
+      BUILD_STEPS.forEach((cls, i) => setTimeout(() => charFollow.classList.add(cls), 500 + i * 700));
+      setTimeout(() => {
+        charFollow.classList.add('is-cheering');
+        if (speech) speech.classList.add('is-visible');
+        if (armR) armR.classList.add('is-pointing');
+      }, 500 + 3 * 700);
+      setTimeout(() => {
+        if (speech) speech.classList.remove('is-visible');
+        if (armR) armR.classList.remove('is-pointing');
+      }, 500 + 3 * 700 + 1400);
+    }
+    buildLoop();
+    setInterval(buildLoop, 5200);
   }
   if (charFollow && ACTION === 'working') {
     let acting = false;
