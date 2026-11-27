@@ -741,7 +741,11 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
       setTimeout(() => speech.classList.remove('is-visible'), 2400);
     }, 900);
   }
-  if (charFollow && ACTION) {
+  // Education: open the book and keep reading as soon as the page loads
+  if (charFollow && ACTION === 'reading') {
+    setTimeout(() => charFollow.classList.add('is-acting'), 700);
+  }
+  if (charFollow && ACTION && ACTION !== 'reading') {
     let acting = false;
     charFollow.addEventListener('click', () => {
       if (acting) return;
