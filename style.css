@@ -2711,13 +2711,16 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
 .page-work .char-follow.in-hero { width: 58px; }
 .page-work .char-follow.in-hero .char-stage { left: 18px; }
 .page-work .hero-row::after { width: 58px; }
+/* Desk sits IN FRONT of the robot (covers its legs), so it reads as standing behind the desk */
 .rp-desk {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 13px;
-  background: linear-gradient(180deg, #7fcf9f 0 3px, #24463a 3px 100%);
+  position: absolute; left: 0; right: 0; bottom: 0; height: 20px;
+  background:
+    linear-gradient(180deg, #7fcf9f 0 3px, #24463a 3px 100%);
   border: 2px solid var(--char-dark);
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.35);
 }
 .rp-monitor {
-  position: absolute; right: 3px; bottom: 15px; width: 20px; height: 15px;
+  position: absolute; right: 3px; bottom: 22px; width: 20px; height: 15px;
   background: #0b1a14; border: 2px solid var(--char-dark);
   box-shadow: inset 0 0 0 1px #5a6b8c;
   padding: 3px 3px 0;
