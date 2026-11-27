@@ -746,7 +746,7 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
   }
   // Education: open the book and keep reading as soon as the page loads
   // Research: keep writing continuously from page load
-  if (charFollow && (ACTION === 'reading' || ACTION === 'writing')) {
+  if (charFollow && (ACTION === 'reading' || ACTION === 'writing' || ACTION === 'working')) {
     setTimeout(() => charFollow.classList.add('is-acting'), 700);
   }
   // Projects: stack three blocks, then throw an arm up and yell YAAAAAA!
@@ -779,7 +779,7 @@ document.querySelectorAll('.dossier-wave').forEach(wave => {
     buildLoop();
     setInterval(buildLoop, 5200);
   }
-  if (charFollow && ACTION === 'working') {
+  if (false) {
     let acting = false;
     charFollow.addEventListener('click', () => {
       if (acting) return;
