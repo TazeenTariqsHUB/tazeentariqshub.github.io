@@ -2742,3 +2742,14 @@ body:has(.sys-hero) .char-rope { --rope: var(--pink-text); }
   0%, 100% { transform: scale(var(--char-scale-sm, 0.6)) translateY(0); }
   50% { transform: scale(var(--char-scale-sm, 0.6)) translateY(-1px); }
 }
+
+/* Education: clearly reading — book held up under the chin, head tilted
+   down to it, eye fixed on the page, a page turning now and then */
+.page-education .rp-book { bottom: 17px; width: 26px; height: 12px; }
+.page-education .is-acting .char-head { animation: readNod 2.8s ease-in-out infinite; }
+@keyframes readNod { 0%, 100% { transform: translateY(1px) rotate(0deg); } 50% { transform: translateY(1px) rotate(4deg); } }
+.page-education .is-acting #charEye { transform: translate(0, 2px) !important; animation: readEye 2.8s steps(1) infinite; }
+@keyframes readEye { 0%, 45% { left: 19px; } 50%, 95% { left: 23px; } }
+.page-education .rp-book i:last-child { transform-origin: 0 50%; }
+.page-education .is-acting .rp-book i:last-child { animation: pageTurn 5.6s ease-in-out infinite; }
+@keyframes pageTurn { 0%, 80% { transform: scaleX(1); } 88% { transform: scaleX(-1); } 96%, 100% { transform: scaleX(1); } }
